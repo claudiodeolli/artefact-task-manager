@@ -1,0 +1,123 @@
+:root {
+    --color-canvas: #f4f3f0;
+    --color-surface: #ffffff;
+    --color-ink: #1b1a17;
+    --color-muted: #6b6862;
+    --color-border: #dedbd4;
+    --color-accent: #1f4d3f;
+    --color-accent-strong: #14382d;
+    --color-danger: #a33a2b;
+    --color-danger-soft: #fbeae6;
+    --color-success-soft: #e7f2ec;
+    --radius-medium: 14px;
+    --shadow-card: 0 1px 2px rgba(27, 26, 23, 0.06), 0 12px 24px -18px rgba(27, 26, 23, 0.45);
+    --font-family-base: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-family-base);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.applicationMain {
+    width: min(100% - 40px, 900px);
+    margin: 0 auto;
+    padding: 48px 0 80px;
+}
+
+.primaryButton,
+.secondaryButton,
+.dangerButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 38px;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background-color 120ms ease,
+        border-color 120ms ease,
+        color 120ms ease;
+}
+
+.primaryButton {
+    background: var(--color-accent);
+    color: #ffffff;
+}
+
+.primaryButton:hover {
+    background: var(--color-accent-strong);
+}
+
+.secondaryButton {
+    border-color: var(--color-border);
+    background: #ffffff;
+    color: var(--color-ink);
+}
+
+.secondaryButton:hover {
+    border-color: #bfbbb2;
+    background: #faf9f7;
+}
+
+.dangerButton {
+    border-color: #e6c9c2;
+    background: #ffffff;
+    color: var(--color-danger);
+}
+
+.dangerButton:hover {
+    background: var(--color-danger-soft);
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled,
+.dangerButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .applicationMain {
+        width: min(100% - 28px, 900px);
+        padding: 28px 0 56px;
+    }
+}

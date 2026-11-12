@@ -1,0 +1,101 @@
+.taskFormPage {
+    display: grid;
+    gap: 24px;
+    max-width: 620px;
+}
+
+.taskFormHeader {
+    display: grid;
+    gap: 6px;
+}
+
+.taskFormEyebrow {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.taskFormTitle {
+    margin: 0;
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+}
+
+.taskFormDescription {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.92rem;
+}
+
+.taskForm {
+    display: grid;
+    gap: 18px;
+    padding: 26px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-medium);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
+}
+
+.taskFormField {
+    display: grid;
+    gap: 6px;
+}
+
+.taskFormLabel {
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
+.taskFormInput,
+.taskFormTextarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--color-ink);
+    transition:
+        border-color 120ms ease,
+        box-shadow 120ms ease;
+}
+
+.taskFormTextarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.taskFormInput:focus,
+.taskFormTextarea:focus {
+    border-color: var(--color-accent);
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 3px rgba(31, 77, 63, 0.16);
+}
+
+.taskFormInput[aria-invalid="true"] {
+    border-color: var(--color-danger);
+}
+
+.taskFormHint {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.76rem;
+}
+
+.taskFormActions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+@media (max-width: 600px) {
+    .taskForm {
+        padding: 20px;
+    }
+}
