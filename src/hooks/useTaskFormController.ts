@@ -55,7 +55,6 @@ export default function useTaskFormController(initialTask?: TaskDto) {
 
         const handleSubmissionSuccess = () => {
             router.push(`/?status=${submissionStatus}`);
-            router.refresh();
         };
 
         if (initialTask) {

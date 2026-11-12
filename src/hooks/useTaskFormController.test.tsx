@@ -5,7 +5,6 @@ import useTaskFormController from "./useTaskFormController";
 
 const routerMock = vi.hoisted(() => ({
     push: vi.fn(),
-    refresh: vi.fn(),
 }));
 
 const mutationState = vi.hoisted(() => ({
@@ -102,7 +101,6 @@ describe("useTaskFormController", () => {
             expect.objectContaining({ onSuccess: expect.any(Function) }),
         );
         expect(routerMock.push).toHaveBeenCalledWith("/?status=created");
-        expect(routerMock.refresh).toHaveBeenCalled();
     });
 
     it("updates the existing task and redirects with the updated status", () => {
