@@ -53,9 +53,16 @@ export default function TaskForm({ initialTask }: TaskFormProperties) {
                         maxLength={120}
                         autoComplete="off"
                         aria-invalid={validationMessage ? true : undefined}
-                        aria-describedby={validationMessage ? "task-form-validation-message" : undefined}
+                        aria-describedby={
+                            validationMessage
+                                ? "task-title-hint task-form-validation-message"
+                                : "task-title-hint"
+                        }
                         required
                     />
+                    <p id="task-title-hint" className={styles.taskFormHint}>
+                        Required. Up to 120 characters.
+                    </p>
                 </div>
 
                 <div className={styles.taskFormField}>
@@ -70,8 +77,11 @@ export default function TaskForm({ initialTask }: TaskFormProperties) {
                         onChange={handleDescriptionChange}
                         maxLength={600}
                         rows={5}
+                        aria-describedby="task-description-hint"
                     />
-                    <p className={styles.taskFormHint}>Optional. Keep it short and focused on the expected outcome.</p>
+                    <p id="task-description-hint" className={styles.taskFormHint}>
+                        Optional. Up to 600 characters.
+                    </p>
                 </div>
 
                 <FeedbackMessage id="task-form-validation-message" message={validationMessage} tone="error" />

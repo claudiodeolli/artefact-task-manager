@@ -82,7 +82,7 @@ describe("TaskForm", () => {
         expect(screen.getByLabelText("Title")).toHaveAttribute("aria-invalid", "true");
         expect(screen.getByLabelText("Title")).toHaveAttribute(
             "aria-describedby",
-            "task-form-validation-message",
+            "task-title-hint task-form-validation-message",
         );
     });
 
