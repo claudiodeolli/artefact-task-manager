@@ -10,3 +10,4 @@
 - Um `next build` rodado durante o dev server do usuário quebrou a porta 3000 (ver 03 Conhecimento); resolvido pelo usuário recriando `.next`.
 
 **Pendente:** commit bloqueado pelo hook (repo fora do GitHub da organização); vulnerabilidade do PostCSS via Next 15 exige migrar para Next 16 (decisão do usuário).
+- Layout shift entre skeleton e página eliminado: removida a animação de entrada do conteúdo e skeletons reconstruídos sobre a estrutura real (introduções extraídas em componentes compartilhados).

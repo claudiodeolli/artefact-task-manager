@@ -9,6 +9,7 @@ import useTaskDeletionController from "@/hooks/useTaskDeletionController";
 import useTaskListInfiniteQuery from "@/hooks/useTaskListInfiniteQuery";
 import type { TaskListPage } from "@/models/TaskListPage";
 import styles from "./task-list.module.css";
+import TaskListIntro from "./TaskListIntro";
 
 type TaskListProperties = {
     readonly initialTaskPage: TaskListPage;
@@ -41,13 +42,7 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
     return (
         <section className={styles.taskListPage}>
             <header className={styles.taskListHeader}>
-                <div className={styles.taskListHeading}>
-                    <p className={styles.taskListEyebrow}>All entries</p>
-                    <h1 className={styles.taskListTitle}>Tasks, in order.</h1>
-                    <p className={styles.taskListDescription}>
-                        Everything currently on the desk, newest first.
-                    </p>
-                </div>
+                <TaskListIntro />
 
                 <div
                     className={styles.taskListCount}

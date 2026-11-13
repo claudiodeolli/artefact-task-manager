@@ -57,7 +57,9 @@ Pre-emit critique: Philosophy 4 · Hierarchy 5 · Execution 5 · Specificity 5 �
 
 ## Loading states
 
-- Route changes show skeletons through `loading.tsx`: the list skeleton (header, navy count block, four card placeholders) only for `/`, through the `(task-list)` route group so it never wraps other routes; the form skeleton (gradient panel plus form sheet) under `/tasks`. Both announce themselves with a visually hidden `role="status"` text.
+- Route changes show skeletons through `loading.tsx`: the list skeleton only for `/` (the `(task-list)` route group keeps it from wrapping other routes), and one form skeleton per form route (`/tasks/new`, `/tasks/[taskId]/edit`). Each announces itself with a visually hidden `role="status"` text.
+- No layout shift: skeletons reuse the real components' CSS modules and render the static copy for real (`TaskListIntro`, `TaskFormIntro`, labels, hints). Only unknown data (task rows, counts, field values) becomes shimmer, shaped by invisible text set in the real type styles so every box keeps its final size.
+- Content has no entrance animation; it replaces the skeleton instantly. Only the skeleton fades in, after a 150 ms delay, so fast navigations never flash it.
 - Busy buttons (`aria-busy="true"`) show a small spinning ring before the label and stay disabled: "Adding…", "Saving…", "Deleting…", "Trying again…".
 - After a successful save the button stays in its busy state until the list route has loaded, so it cannot be submitted twice.
 - A card being deleted fades to 60 % opacity. "Loading entries…" for the next page carries a magenta spinner.

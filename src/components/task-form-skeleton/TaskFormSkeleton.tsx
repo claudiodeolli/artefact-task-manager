@@ -1,26 +1,40 @@
+import formStyles from "@/components/task-form/task-form.module.css";
+import TaskFormIntro from "@/components/task-form/TaskFormIntro";
 import styles from "./task-form-skeleton.module.css";
 
-export default function TaskFormSkeleton() {
+type TaskFormSkeletonProperties = {
+    readonly isEditingTask?: boolean;
+};
+
+export default function TaskFormSkeleton({ isEditingTask = false }: TaskFormSkeletonProperties) {
     return (
-        <div className={styles.taskFormSkeleton} role="status" aria-live="polite">
-            <span className="visuallyHidden">Loading the task form…</span>
+        <section className={formStyles.taskFormPage}>
+            <span role="status" className="visuallyHidden">
+                Loading the task form…
+            </span>
 
-            <div className={styles.taskFormSkeletonIntro} aria-hidden="true">
-                <span className={`${styles.skeletonBar} ${styles.skeletonEyebrow}`} />
-                <span className={`${styles.skeletonBar} ${styles.skeletonTitle}`} />
-                <span className={`${styles.skeletonBar} ${styles.skeletonDescription}`} />
-            </div>
+            <TaskFormIntro isEditingTask={isEditingTask} />
 
-            <div className={styles.taskFormSkeletonSheet} aria-hidden="true">
-                <span className={`${styles.skeletonBar} ${styles.skeletonLabel}`} />
-                <span className={`${styles.skeletonBar} ${styles.skeletonInput}`} />
-                <span className={`${styles.skeletonBar} ${styles.skeletonLabel}`} />
-                <span className={`${styles.skeletonBar} ${styles.skeletonTextarea}`} />
-                <span className={styles.taskFormSkeletonActions}>
-                    <span className={`${styles.skeletonBar} ${styles.skeletonPill}`} />
-                    <span className={`${styles.skeletonBar} ${styles.skeletonPill}`} />
-                </span>
+            <div className={`${formStyles.taskForm} ${styles.skeletonAppear}`} aria-hidden="true">
+                <div className={formStyles.taskFormField}>
+                    <span className={formStyles.taskFormLabel}>Title</span>
+                    <span className={`${formStyles.taskFormInput} ${styles.skeletonField}`}>&nbsp;</span>
+                    <span className={formStyles.taskFormHint}>Required. Up to 120 characters.</span>
+                </div>
+
+                <div className={formStyles.taskFormField}>
+                    <span className={formStyles.taskFormLabel}>Description</span>
+                    <span className={`${formStyles.taskFormTextarea} ${styles.skeletonField}`}>&nbsp;</span>
+                    <span className={formStyles.taskFormHint}>Optional. Up to 600 characters.</span>
+                </div>
+
+                <div className={formStyles.taskFormActions}>
+                    <span className={`primaryButton ${styles.skeletonControl}`}>
+                        {isEditingTask ? "Save changes" : "Add task"}
+                    </span>
+                    <span className={`secondaryButton ${styles.skeletonControl}`}>Cancel</span>
+                </div>
             </div>
-        </div>
+        </section>
     );
 }

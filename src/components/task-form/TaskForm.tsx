@@ -5,6 +5,7 @@ import useTaskFormController from "@/hooks/useTaskFormController";
 import type { TaskDto } from "@/models/TaskDto";
 import Link from "next/link";
 import styles from "./task-form.module.css";
+import TaskFormIntro from "./TaskFormIntro";
 
 type TaskFormProperties = {
     readonly initialTask?: TaskDto;
@@ -29,25 +30,7 @@ export default function TaskForm({ initialTask }: TaskFormProperties) {
 
     return (
         <section className={styles.taskFormPage}>
-            <div className={styles.taskFormIntro}>
-                <p className={styles.taskFormEyebrow}>{isEditingTask ? "Edit entry" : "New entry"}</p>
-                <h1 className={styles.taskFormTitle}>
-                    {isEditingTask ? "Revise the entry." : "Write it down."}
-                </h1>
-                <p className={styles.taskFormDescription}>
-                    {isEditingTask
-                        ? "Change what moved. The rest of the ledger stays as it was."
-                        : "A clear title is enough. Add context if it helps the next person."}
-                </p>
-
-                <div className={styles.taskFormNote}>
-                    <p className={styles.taskFormNoteLabel}>A good entry</p>
-                    <p className={styles.taskFormNoteText}>
-                        A title that starts with a verb. A description with the one detail someone
-                        would otherwise have to ask for.
-                    </p>
-                </div>
-            </div>
+            <TaskFormIntro isEditingTask={isEditingTask} />
 
             <form className={styles.taskForm} onSubmit={handleTaskFormSubmit} noValidate>
                 <FeedbackMessage message={submissionErrorMessage} tone="error" />

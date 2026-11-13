@@ -14,4 +14,17 @@ describe("TaskListSkeleton", () => {
 
         expect(container.querySelectorAll("li")).toHaveLength(3);
     });
+
+    it("renders the real list intro when the header is requested", () => {
+        render(<TaskListSkeleton shouldShowHeader />);
+
+        expect(screen.getByRole("heading", { name: "Tasks, in order." })).toBeInTheDocument();
+    });
+
+    it("does not render interactive controls", () => {
+        render(<TaskListSkeleton shouldShowHeader />);
+
+        expect(screen.queryByRole("button")).not.toBeInTheDocument();
+        expect(screen.queryByRole("link")).not.toBeInTheDocument();
+    });
 });
