@@ -9,6 +9,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
     title: "Edit task | Task Manager",
+    robots: { index: false, follow: false },
 };
 
 type EditTaskPageProperties = {

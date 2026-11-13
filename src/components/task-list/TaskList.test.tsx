@@ -60,7 +60,7 @@ const mockTaskDeletion = (overrides: Record<string, unknown> = {}) => {
     vi.mocked(useTaskDeletionController).mockReturnValue({
         feedbackMessage: null,
         feedbackTone: "success",
-        deletingTaskId: null,
+        deletingTaskIds: new Set<string>(),
         deleteTaskById,
         ...overrides,
     });
@@ -145,7 +145,7 @@ describe("TaskList", () => {
     });
 
     it("shows the deletion state of the task being removed", () => {
-        mockTaskDeletion({ deletingTaskId: "first-task" });
+        mockTaskDeletion({ deletingTaskIds: new Set(["first-task"]) });
 
         render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage={null} />);
 

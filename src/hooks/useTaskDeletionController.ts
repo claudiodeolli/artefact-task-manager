@@ -9,33 +9,35 @@ export default function useTaskDeletionController(initialFeedbackMessage: string
     const deleteTaskMutation = useDeleteTaskMutation();
     const [feedbackMessage, setFeedbackMessage] = useState<string | null>(initialFeedbackMessage);
     const [feedbackTone, setFeedbackTone] = useState<FeedbackTone>("success");
-    const [deletingTaskId, setDeletingTaskId] = useState<string | null>(null);
+    const [deletingTaskIds, setDeletingTaskIds] = useState<ReadonlySet<string>>(() => new Set());
 
-    const deleteTaskById = (taskId: string) => {
-        setDeletingTaskId(taskId);
+    const deleteTaskById = async (taskId: string) => {
+        if (deletingTaskIds.has(taskId)) {
+            return;
+        }
 
-        deleteTaskMutation.mutate(
-            { taskId },
-            {
-                onSuccess: () => {
-                    setFeedbackMessage("Entry removed from the ledger.");
-                    setFeedbackTone("success");
-                },
-                onError: (error) => {
-                    setFeedbackMessage(getTrpcErrorMessage(error));
-                    setFeedbackTone("error");
-                },
-                onSettled: () => {
-                    setDeletingTaskId(null);
-                },
-            },
-        );
+        setDeletingTaskIds((currentTaskIds) => new Set(currentTaskIds).add(taskId));
+
+        try {
+            await deleteTaskMutation.mutateAsync({ taskId });
+            setFeedbackMessage("Entry removed from the ledger.");
+            setFeedbackTone("success");
+        } catch (error) {
+            setFeedbackMessage(getTrpcErrorMessage(error));
+            setFeedbackTone("error");
+        } finally {
+            setDeletingTaskIds((currentTaskIds) => {
+                const remainingTaskIds = new Set(currentTaskIds);
+                remainingTaskIds.delete(taskId);
+                return remainingTaskIds;
+            });
+        }
     };
 
     return {
         feedbackMessage,
         feedbackTone,
-        deletingTaskId,
+        deletingTaskIds,
         deleteTaskById,
     };
 }

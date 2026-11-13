@@ -11,8 +11,33 @@ describe("getTrpcErrorMessage", () => {
     });
 
     it("returns the error message when no validation message exists", () => {
-        expect(getTrpcErrorMessage(new Error("Task with id \"missing-task\" was not found."))).toBe(
-            'Task with id "missing-task" was not found.',
+        expect(getTrpcErrorMessage(new Error("The ledger could not be loaded."))).toBe(
+            "The ledger could not be loaded.",
+        );
+    });
+
+    it("returns a friendly message for a missing task instead of its id", () => {
+        const notFoundError = Object.assign(new Error('Task with id "missing-task" was not found.'), {
+            data: { code: "NOT_FOUND", validationMessage: null },
+        });
+
+        expect(getTrpcErrorMessage(notFoundError)).toBe("This entry no longer exists. It may have been deleted.");
+    });
+
+    it("hides the server message of an internal error", () => {
+        const internalError = Object.assign(new Error("Cannot read properties of undefined"), {
+            data: { code: "INTERNAL_SERVER_ERROR", validationMessage: null },
+        });
+
+        expect(getTrpcErrorMessage(internalError)).toBe("An unexpected error occurred. Please try again.");
+    });
+
+    it("explains a network failure in plain language", () => {
+        expect(getTrpcErrorMessage(new Error("Failed to fetch"))).toBe(
+            "Could not reach the server. Check your connection and try again.",
+        );
+        expect(getTrpcErrorMessage(Object.assign(new Error("fetch failed"), { cause: new TypeError("offline") }))).toBe(
+            "Could not reach the server. Check your connection and try again.",
         );
     });
 

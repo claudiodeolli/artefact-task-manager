@@ -5,6 +5,7 @@ import FeedbackMessage from "@/components/feedback-message/FeedbackMessage";
 import TaskCard from "@/components/task-card/TaskCard";
 import TaskListSkeleton from "@/components/task-list-skeleton/TaskListSkeleton";
 import useInfiniteScrollTrigger from "@/hooks/useInfiniteScrollTrigger";
+import useStatusQueryParameterCleanup from "@/hooks/useStatusQueryParameterCleanup";
 import useTaskDeletionController from "@/hooks/useTaskDeletionController";
 import useTaskListInfiniteQuery from "@/hooks/useTaskListInfiniteQuery";
 import type { TaskListPage } from "@/models/TaskListPage";
@@ -29,8 +30,10 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
         retryTaskListLoading,
     } = useTaskListInfiniteQuery(initialTaskPage);
 
-    const { feedbackMessage, feedbackTone, deletingTaskId, deleteTaskById } =
+    const { feedbackMessage, feedbackTone, deletingTaskIds, deleteTaskById } =
         useTaskDeletionController(initialFeedbackMessage);
+
+    useStatusQueryParameterCleanup();
 
     const infiniteScrollSentinelReference = useInfiniteScrollTrigger({
         shouldTrigger: hasMoreTasks && !isLoadingMoreTasks,
@@ -88,8 +91,8 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
                             <li key={task.id}>
                                 <TaskCard
                                     task={task}
-                                    isDeleting={deletingTaskId === task.id}
-                                    onDeleteRequested={deleteTaskById}
+                                    isDeleting={deletingTaskIds.has(task.id)}
+                                    onDeleteRequested={(taskId) => void deleteTaskById(taskId)}
                                 />
                             </li>
                         ))}

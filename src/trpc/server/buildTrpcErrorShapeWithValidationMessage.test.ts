@@ -32,6 +32,30 @@ describe("buildTrpcErrorShapeWithValidationMessage", () => {
         expect(shapedError.message).toBe("Raw validation payload");
     });
 
+    it("replaces the message and drops the stack of internal server errors", () => {
+        const shapedError = buildTrpcErrorShapeWithValidationMessage(
+            {
+                message: "Cannot read properties of undefined (reading 'id')",
+                code: -32603,
+                data: { code: "INTERNAL_SERVER_ERROR", httpStatus: 500, stack: "at /srv/app.js:12" },
+            },
+            new Error("Cannot read properties of undefined (reading 'id')"),
+        );
+
+        expect(shapedError.message).toBe("An unexpected error occurred. Please try again.");
+        expect(shapedError.data).not.toHaveProperty("stack");
+        expect(shapedError.data).toMatchObject({ code: "INTERNAL_SERVER_ERROR", httpStatus: 500 });
+    });
+
+    it("keeps the message of expected errors", () => {
+        const shapedError = buildTrpcErrorShapeWithValidationMessage(
+            { message: 'Task with id "x" was not found.', code: -32004, data: { code: "NOT_FOUND", httpStatus: 404 } },
+            new Error('Task with id "x" was not found.'),
+        );
+
+        expect(shapedError.message).toBe('Task with id "x" was not found.');
+    });
+
     it("adds a null validation message for errors that are not validation errors", () => {
         const shapedError = buildTrpcErrorShapeWithValidationMessage(errorShape, new Error("Unexpected failure"));
 

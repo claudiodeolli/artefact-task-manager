@@ -9,8 +9,8 @@ export default function useCreateTaskMutation() {
 
     return useMutation(
         trpc.task.create.mutationOptions({
-            onSuccess: async () => {
-                await queryClient.invalidateQueries(trpc.task.pathFilter());
+            onSuccess: () => {
+                queryClient.removeQueries(trpc.task.pathFilter());
             },
         }),
     );
