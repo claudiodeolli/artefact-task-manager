@@ -7,6 +7,7 @@ import styles from "./delete-task-confirmation-dialog.module.css";
 type DeleteTaskConfirmationDialogProperties = {
     readonly task: TaskDto | null;
     readonly isDeleting: boolean;
+    readonly returnFocusElement?: HTMLElement | null;
     readonly onCancel: () => void;
     readonly onConfirm: () => void;
 };
@@ -14,10 +15,12 @@ type DeleteTaskConfirmationDialogProperties = {
 export default function DeleteTaskConfirmationDialog({
     task,
     isDeleting,
+    returnFocusElement,
     onCancel,
     onConfirm,
 }: DeleteTaskConfirmationDialogProperties) {
     const dialogReference = useRef<HTMLDialogElement>(null);
+    const previouslyFocusedElementReference = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
         const dialog = dialogReference.current;
@@ -25,6 +28,10 @@ export default function DeleteTaskConfirmationDialog({
         if (!dialog) {
             return undefined;
         }
+
+        previouslyFocusedElementReference.current =
+            returnFocusElement ??
+            (document.activeElement instanceof HTMLElement ? document.activeElement : null);
 
         if (!dialog.open) {
             dialog.showModal();
@@ -34,8 +41,14 @@ export default function DeleteTaskConfirmationDialog({
             if (dialog.open) {
                 dialog.close();
             }
+
+            const previouslyFocusedElement = previouslyFocusedElementReference.current;
+
+            if (previouslyFocusedElement?.isConnected) {
+                previouslyFocusedElement.focus();
+            }
         };
-    }, [task]);
+    }, [returnFocusElement, task]);
 
     if (!task) {
         return null;

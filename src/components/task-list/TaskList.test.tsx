@@ -37,7 +37,7 @@ const initialTaskPage: TaskListPage = {
     totalTaskCount: 2,
 };
 
-const deleteTaskById = vi.fn().mockResolvedValue(undefined);
+const deleteTaskById = vi.fn().mockResolvedValue(true);
 const retryTaskListLoading = vi.fn();
 const loadMoreTasks = vi.fn();
 
@@ -82,6 +82,19 @@ describe("TaskList", () => {
         expect(screen.getByText("2 shown")).toBeInTheDocument();
         expect(screen.getByRole("heading", { name: "Prepare the weekly analytics review" })).toBeInTheDocument();
         expect(screen.getByRole("heading", { name: "Review the customer segmentation model" })).toBeInTheDocument();
+    });
+
+    it("uses the singular entry label for one task", () => {
+        mockTaskListQuery({
+            taskDtoList: [initialTaskPage.items[0]],
+            totalTaskCount: 1,
+        });
+
+        render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage={null} />);
+
+        expect(screen.getByLabelText("1 entry in the ledger")).toBeInTheDocument();
+        expect(screen.getByText("entry")).toBeInTheDocument();
+        expect(screen.getByText("1 shown")).toBeInTheDocument();
     });
 
     it("renders the empty state when there are no tasks", () => {

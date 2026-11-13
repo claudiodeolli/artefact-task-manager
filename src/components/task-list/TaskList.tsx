@@ -5,6 +5,7 @@ import FeedbackMessage from "@/components/feedback-message/FeedbackMessage";
 import DeleteTaskConfirmationDialog from "@/components/delete-task-confirmation-dialog/DeleteTaskConfirmationDialog";
 import TaskCard from "@/components/task-card/TaskCard";
 import TaskListSkeleton from "@/components/task-list-skeleton/TaskListSkeleton";
+import formatTaskEntryNoun from "@/helpers/formatTaskEntryNoun";
 import useInfiniteScrollTrigger from "@/hooks/useInfiniteScrollTrigger";
 import useStatusQueryParameterCleanup from "@/hooks/useStatusQueryParameterCleanup";
 import useTaskDeletionController from "@/hooks/useTaskDeletionController";
@@ -37,6 +38,8 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
         useTaskDeletionController(initialFeedbackMessage);
 
     const [taskPendingDeletion, setTaskPendingDeletion] = useState<TaskDto | null>(null);
+    const [taskDeletionReturnFocusElement, setTaskDeletionReturnFocusElement] =
+        useState<HTMLElement | null>(null);
 
     useStatusQueryParameterCleanup();
 
@@ -51,6 +54,9 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
         const task = taskDtoList.find((candidate) => candidate.id === taskId);
 
         if (task) {
+            setTaskDeletionReturnFocusElement(
+                document.activeElement instanceof HTMLElement ? document.activeElement : null,
+            );
             setTaskPendingDeletion(task);
         }
     };
@@ -62,8 +68,14 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
             return;
         }
 
-        await deleteTaskById(taskToDelete.id);
+        const didDeleteTask = await deleteTaskById(taskToDelete.id);
         setTaskPendingDeletion(null);
+
+        if (didDeleteTask) {
+            window.requestAnimationFrame(() => {
+                document.getElementById("main-content")?.focus();
+            });
+        }
     };
 
     return (
@@ -73,10 +85,12 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
 
                 <div
                     className={styles.taskListCount}
-                    aria-label={`${totalTaskCount} entries in the ledger`}
+                    aria-label={`${totalTaskCount} ${formatTaskEntryNoun(totalTaskCount)} in the ledger`}
                 >
                     <span className={styles.taskListCountNumber}>{totalTaskCount}</span>
-                    <span className={styles.taskListCountLabel}>entries</span>
+                    <span className={styles.taskListCountLabel}>
+                        {formatTaskEntryNoun(totalTaskCount)}
+                    </span>
                     <span className={styles.taskListCountShown}>{taskDtoList.length} shown</span>
                 </div>
             </header>
@@ -153,6 +167,7 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
                         ? deletingTaskIds.has(taskPendingDeletion.id)
                         : false
                 }
+                returnFocusElement={taskDeletionReturnFocusElement}
                 onCancel={() => setTaskPendingDeletion(null)}
                 onConfirm={() => {
                     void confirmTaskDeletion();

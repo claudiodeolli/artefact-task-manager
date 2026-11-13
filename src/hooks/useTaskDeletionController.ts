@@ -11,9 +11,9 @@ export default function useTaskDeletionController(initialFeedbackMessage: string
     const [feedbackTone, setFeedbackTone] = useState<FeedbackTone>("success");
     const [deletingTaskIds, setDeletingTaskIds] = useState<ReadonlySet<string>>(() => new Set());
 
-    const deleteTaskById = async (taskId: string) => {
+    const deleteTaskById = async (taskId: string): Promise<boolean> => {
         if (deletingTaskIds.has(taskId)) {
-            return;
+            return false;
         }
 
         setDeletingTaskIds((currentTaskIds) => new Set(currentTaskIds).add(taskId));
@@ -22,9 +22,11 @@ export default function useTaskDeletionController(initialFeedbackMessage: string
             await deleteTaskMutation.mutateAsync({ taskId });
             setFeedbackMessage("Entry removed from the ledger.");
             setFeedbackTone("success");
+            return true;
         } catch (error) {
             setFeedbackMessage(getTrpcErrorMessage(error));
             setFeedbackTone("error");
+            return false;
         } finally {
             setDeletingTaskIds((currentTaskIds) => {
                 const remainingTaskIds = new Set(currentTaskIds);

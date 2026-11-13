@@ -73,4 +73,28 @@ describe("DeleteTaskConfirmationDialog", () => {
 
         expect(container).toBeEmptyDOMElement();
     });
+
+    it("returns focus to the element that opened it when it closes", async () => {
+        const trigger = document.createElement("button");
+        trigger.textContent = "Delete";
+        document.body.appendChild(trigger);
+        trigger.focus();
+
+        const { unmount } = render(
+            <DeleteTaskConfirmationDialog
+                task={task}
+                isDeleting={false}
+                returnFocusElement={trigger}
+                onCancel={vi.fn()}
+                onConfirm={vi.fn()}
+            />,
+        );
+
+        await screen.findByRole("dialog");
+        unmount();
+
+        expect(document.activeElement).toBe(trigger);
+
+        trigger.remove();
+    });
 });
