@@ -2,6 +2,8 @@
 
 Gerenciador de tarefas em memória (case técnico Artefact): Next.js 15, tRPC 11, React 19, TypeScript, Vitest. Lista com scroll infinito, criação, edição e exclusão de tarefas.
 
-- Sistema visual vigente: "Artefact Studied", descrito em `design.md` na raiz. Tokens em `src/app/tokens.css`.
-- Estilos por CSS Modules por componente; botões globais (`primaryButton`, `secondaryButton`, `dangerButton`) em `src/app/globals.css`.
-- Testes: `npm test` (110 testes). Build: `npm run build`.
+- Sistema visual vigente: "Artefact Studied" (estética do site artefact.com/br), descrito em `design.md`. Tokens em `src/app/tokens.css`. Sem menu lateral e sem rodapé.
+- Página da lista em `src/app/(task-list)/` (grupo de rotas, URL `/`); formulários em `src/app/tasks/`.
+- Estados de loading: skeletons por rota (`loading.tsx`), spinner em botões `aria-busy`.
+- Testes: `npm test` (116 testes). Build: `npm run build`.
+- Alterações da branch `design/bento-pastel-redesign` estão staged, sem commit: o hook da empresa bloqueia commit porque o repo não está no GitHub da organização.
