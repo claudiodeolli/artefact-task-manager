@@ -5,3 +5,4 @@ Versão vigente: estética estudada do site público https://www.artefact.com/br
 - O usuário pediu: sem menu lateral, cards iguais empilhados na vertical, e a referência fornece só características estéticas, nunca o layout.
 - Somente CSS e troca de fontes. Nenhum texto, aria ou comportamento mudou.
 - Magenta dos botões escurecido para o texto branco passar em contraste AA.
+- Rodapé removido a pedido do usuário (componente ApplicationFooter excluído).

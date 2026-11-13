@@ -13,7 +13,7 @@ Studied DNA from the public site https://www.artefact.com/br/ (URL mode plus ren
 - List page: a heading block (mono eyebrow, gradient-text title, description, short gradient rule) beside a navy count panel; then one vertical column of identical square task cards.
 - Form pages: a gradient intro panel joined to a white form sheet; they stack below 1100px.
 - Not-found: a gradient panel. Empty list: a white bordered panel.
-- Footer: a full-bleed gradient band with the quote and a short white rule.
+- No footer; the page ends with the working column.
 
 ## Theme
 
