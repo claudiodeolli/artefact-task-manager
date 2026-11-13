@@ -54,6 +54,7 @@ const createQueryResult = (overrides: Record<string, unknown> = {}) => ({
         pageParams: [null, "middle-task"],
     },
     isPending: false,
+    isFetching: false,
     isFetchingNextPage: false,
     hasNextPage: false,
     error: null,
@@ -99,5 +100,33 @@ describe("useTaskListInfiniteQuery", () => {
         expect(result.current.isLoadingMoreTasks).toBe(true);
         expect(result.current.hasMoreTasks).toBe(true);
         expect(result.current.taskListErrorMessage).toBe("The task list could not be loaded.");
+        expect(result.current.isRetryingTaskListLoading).toBe(false);
+    });
+
+    it("reports a retry while the failed list is fetched again", () => {
+        vi.mocked(useInfiniteQuery).mockReturnValue(
+            createQueryResult({
+                isFetching: true,
+                error: new Error("The task list could not be loaded."),
+            }) as unknown as ReturnType<typeof useInfiniteQuery>,
+        );
+
+        const { result } = renderHook(() => useTaskListInfiniteQuery(firstTaskPage));
+
+        expect(result.current.isRetryingTaskListLoading).toBe(true);
+    });
+
+    it("does not report a retry while only the next page is loading", () => {
+        vi.mocked(useInfiniteQuery).mockReturnValue(
+            createQueryResult({
+                isFetching: true,
+                isFetchingNextPage: true,
+                error: new Error("The task list could not be loaded."),
+            }) as unknown as ReturnType<typeof useInfiniteQuery>,
+        );
+
+        const { result } = renderHook(() => useTaskListInfiniteQuery(firstTaskPage));
+
+        expect(result.current.isRetryingTaskListLoading).toBe(false);
     });
 });

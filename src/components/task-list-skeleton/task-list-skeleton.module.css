@@ -1,0 +1,144 @@
+.taskListSkeleton {
+    display: grid;
+    gap: var(--space-xl);
+    width: 100%;
+}
+
+.skeletonBar {
+    display: block;
+    height: var(--text-base);
+    background: linear-gradient(90deg, var(--color-paper-2) 0%, var(--color-rule) 50%, var(--color-paper-2) 100%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1400ms var(--ease-in-out) infinite;
+}
+
+.taskListSkeletonHeader {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 280px);
+    align-items: end;
+    gap: var(--space-xl);
+}
+
+.taskListSkeletonHeading {
+    display: grid;
+    gap: var(--space-sm);
+    padding-bottom: var(--space-lg);
+}
+
+.skeletonEyebrow {
+    width: 96px;
+    height: var(--text-sm);
+}
+
+.skeletonTitle {
+    width: min(100%, 520px);
+    height: var(--text-display);
+}
+
+.skeletonDescription {
+    width: min(100%, 360px);
+    height: var(--text-md);
+}
+
+.taskListSkeletonCount {
+    min-height: 220px;
+    background: var(--color-navy);
+    animation: skeleton-pulse 1400ms var(--ease-in-out) infinite;
+}
+
+.taskListSkeletonEntries {
+    display: grid;
+    gap: var(--space-sm);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.taskListSkeletonEntry {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+    border: var(--hairline) solid var(--color-rule);
+    background: var(--color-paper);
+}
+
+.skeletonDate {
+    width: 88px;
+    height: var(--text-sm);
+}
+
+.taskListSkeletonEntryBody {
+    display: grid;
+    gap: var(--space-xs);
+    min-width: 0;
+}
+
+.skeletonEntryTitle {
+    width: min(100%, 340px);
+    height: var(--text-lg);
+}
+
+.skeletonEntryText {
+    width: min(100%, 480px);
+}
+
+.taskListSkeletonEntryActions {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.skeletonPill {
+    width: 72px;
+    height: 40px;
+    border-radius: var(--radius-pill);
+}
+
+@keyframes skeleton-shimmer {
+    from {
+        background-position: 100% 0;
+    }
+
+    to {
+        background-position: -100% 0;
+    }
+}
+
+@keyframes skeleton-pulse {
+    50% {
+        opacity: 0.82;
+    }
+}
+
+@media (max-width: 1100px) {
+    .taskListSkeletonHeader {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 240px);
+        gap: var(--space-lg);
+    }
+}
+
+@media (max-width: 760px) {
+    .taskListSkeletonHeader {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-md);
+    }
+
+    .taskListSkeletonCount {
+        min-height: 120px;
+    }
+
+    .taskListSkeletonEntry {
+        grid-template-columns: minmax(0, 1fr);
+        align-items: start;
+        gap: var(--space-sm);
+        padding: var(--space-md);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeletonBar,
+    .taskListSkeletonCount {
+        animation: none;
+    }
+}

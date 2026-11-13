@@ -3,6 +3,7 @@
 import EmptyTaskListMessage from "@/components/empty-task-list-message/EmptyTaskListMessage";
 import FeedbackMessage from "@/components/feedback-message/FeedbackMessage";
 import TaskCard from "@/components/task-card/TaskCard";
+import TaskListSkeleton from "@/components/task-list-skeleton/TaskListSkeleton";
 import useInfiniteScrollTrigger from "@/hooks/useInfiniteScrollTrigger";
 import useTaskDeletionController from "@/hooks/useTaskDeletionController";
 import useTaskListInfiniteQuery from "@/hooks/useTaskListInfiniteQuery";
@@ -21,6 +22,7 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
         isInitialLoading,
         isLoadingMoreTasks,
         hasMoreTasks,
+        isRetryingTaskListLoading,
         taskListErrorMessage,
         loadMoreTasks,
         retryTaskListLoading,
@@ -66,16 +68,16 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
                         type="button"
                         className="secondaryButton"
                         onClick={() => void retryTaskListLoading()}
+                        disabled={isRetryingTaskListLoading}
+                        aria-busy={isRetryingTaskListLoading}
                     >
-                        Try again
+                        {isRetryingTaskListLoading ? "Trying again…" : "Try again"}
                     </button>
                 </div>
             ) : null}
 
             {isInitialLoading ? (
-                <p className={styles.taskListLoadingMore} role="status">
-                    Loading entries…
-                </p>
+                <TaskListSkeleton />
             ) : taskDtoList.length === 0 ? (
                 <EmptyTaskListMessage />
             ) : (

@@ -31,6 +31,8 @@ export default function useTaskListInfiniteQuery(initialTaskPage: TaskListPage) 
         isInitialLoading: taskListQuery.isPending,
         isLoadingMoreTasks: taskListQuery.isFetchingNextPage,
         hasMoreTasks: taskListQuery.hasNextPage,
+        isRetryingTaskListLoading:
+            Boolean(taskListQuery.error) && taskListQuery.isFetching && !taskListQuery.isFetchingNextPage,
         taskListErrorMessage: taskListQuery.error ? getTrpcErrorMessage(taskListQuery.error) : null,
         loadMoreTasks: taskListQuery.fetchNextPage,
         retryTaskListLoading: taskListQuery.refetch,

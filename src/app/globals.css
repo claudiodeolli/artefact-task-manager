@@ -211,8 +211,34 @@ button {
     transform: none;
 }
 
-.dangerButton[aria-busy="true"] {
+.dangerButton[aria-busy="true"],
+.secondaryButton[aria-busy="true"] {
     cursor: progress;
+}
+
+.primaryButton[aria-busy="true"],
+.secondaryButton[aria-busy="true"],
+.dangerButton[aria-busy="true"] {
+    opacity: 0.85;
+}
+
+.primaryButton[aria-busy="true"]::before,
+.secondaryButton[aria-busy="true"]::before,
+.dangerButton[aria-busy="true"]::before {
+    content: "";
+    width: 0.9em;
+    height: 0.9em;
+    flex: 0 0 auto;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: var(--radius-pill);
+    animation: loading-spin 700ms linear infinite;
+}
+
+@keyframes loading-spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .visuallyHidden {
@@ -263,6 +289,12 @@ button {
     }
 
     .applicationMain > * {
+        animation: none;
+    }
+
+    .primaryButton[aria-busy="true"]::before,
+    .secondaryButton[aria-busy="true"]::before,
+    .dangerButton[aria-busy="true"]::before {
         animation: none;
     }
 

@@ -136,11 +136,36 @@
 }
 
 .taskListLoadingMore {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
     justify-self: center;
     margin-top: var(--space-xs);
     color: var(--color-ink-2);
     font-family: var(--font-mono);
     font-size: var(--text-sm);
+}
+
+.taskListLoadingMore::before {
+    content: "";
+    width: 1em;
+    height: 1em;
+    border: 2px solid var(--color-rule);
+    border-top-color: var(--color-accent);
+    border-radius: var(--radius-pill);
+    animation: loading-spin 700ms linear infinite;
+}
+
+@keyframes loading-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .taskListLoadingMore::before {
+        animation: none;
+    }
 }
 
 .taskListScrollSentinel {

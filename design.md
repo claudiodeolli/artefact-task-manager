@@ -54,3 +54,11 @@ All colours are OKLCH in `src/app/tokens.css`.
 ## Hallmark review
 
 Pre-emit critique: Philosophy 4 · Hierarchy 5 · Execution 5 · Specificity 5 · Restraint 4 · Variety 4. No stamp comment in the CSS because the project forbids code comments; this file and `.hallmark/log.json` are the durable record.
+
+## Loading states
+
+- Route changes show skeletons through `loading.tsx`: the list skeleton (header, navy count block, four card placeholders) at the root, the form skeleton (gradient panel plus form sheet) under `/tasks`. Both announce themselves with a visually hidden `role="status"` text.
+- Busy buttons (`aria-busy="true"`) show a small spinning ring before the label and stay disabled: "Adding…", "Saving…", "Deleting…", "Trying again…".
+- After a successful save the button stays in its busy state until the list route has loaded, so it cannot be submitted twice.
+- A card being deleted fades to 60 % opacity. "Loading entries…" for the next page carries a magenta spinner.
+- Reduced motion stops every spinner and shimmer; the static shapes remain.

@@ -5,7 +5,7 @@ import getTrpcErrorMessage from "@/helpers/getTrpcErrorMessage";
 import type { TaskDto } from "@/models/TaskDto";
 import { createTaskInputSchema } from "@/schemas/createTaskInputSchema";
 import { useRouter } from "next/navigation";
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState, useTransition, type ChangeEvent, type FormEvent } from "react";
 import useCreateTaskMutation from "./useCreateTaskMutation";
 import useUpdateTaskMutation from "./useUpdateTaskMutation";
 
@@ -18,8 +18,10 @@ export default function useTaskFormController(initialTask?: TaskDto) {
     const [title, setTitle] = useState(initialTask?.title ?? "");
     const [description, setDescription] = useState(initialTask?.description ?? "");
     const [validationMessage, setValidationMessage] = useState<string | null>(null);
+    const [isNavigatingAfterSubmission, startNavigationTransition] = useTransition();
 
-    const isSubmittingTask = createTaskMutation.isPending || updateTaskMutation.isPending;
+    const isSubmittingTask =
+        createTaskMutation.isPending || updateTaskMutation.isPending || isNavigatingAfterSubmission;
     const taskSubmissionError = createTaskMutation.error ?? updateTaskMutation.error;
     const submissionErrorMessage = taskSubmissionError ? getTrpcErrorMessage(taskSubmissionError) : null;
 
@@ -54,7 +56,9 @@ export default function useTaskFormController(initialTask?: TaskDto) {
         const submissionStatus: TaskFormSubmissionStatus = initialTask ? "updated" : "created";
 
         const handleSubmissionSuccess = () => {
-            router.push(`/?status=${submissionStatus}`);
+            startNavigationTransition(() => {
+                router.push(`/?status=${submissionStatus}`);
+            });
         };
 
         if (initialTask) {

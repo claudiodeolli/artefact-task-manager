@@ -35,6 +35,11 @@
     transform: scaleY(1);
 }
 
+.taskCard:has(:global(.dangerButton)[aria-busy="true"]) {
+    opacity: 0.6;
+    cursor: progress;
+}
+
 .taskCardDate {
     display: grid;
     align-self: start;

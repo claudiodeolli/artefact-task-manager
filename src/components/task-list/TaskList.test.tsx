@@ -48,6 +48,7 @@ const mockTaskListQuery = (overrides: Record<string, unknown> = {}) => {
         isInitialLoading: false,
         isLoadingMoreTasks: false,
         hasMoreTasks: false,
+        isRetryingTaskListLoading: false,
         taskListErrorMessage: null,
         loadMoreTasks,
         retryTaskListLoading,
@@ -119,6 +120,20 @@ describe("TaskList", () => {
         fireEvent.click(screen.getByRole("button", { name: "Try again" }));
 
         expect(retryTaskListLoading).toHaveBeenCalledTimes(1);
+    });
+
+    it("shows the retry state while the list is loading again", () => {
+        mockTaskListQuery({
+            taskListErrorMessage: "The ledger could not be loaded.",
+            isRetryingTaskListLoading: true,
+        });
+
+        render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage={null} />);
+
+        const retryButton = screen.getByRole("button", { name: "Trying again…" });
+
+        expect(retryButton).toBeDisabled();
+        expect(retryButton).toHaveAttribute("aria-busy", "true");
     });
 
     it("requests the deletion of a task", () => {

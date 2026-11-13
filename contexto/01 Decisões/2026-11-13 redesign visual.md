@@ -6,3 +6,4 @@ Versão vigente: estética estudada do site público https://www.artefact.com/br
 - Somente CSS e troca de fontes. Nenhum texto, aria ou comportamento mudou.
 - Magenta dos botões escurecido para o texto branco passar em contraste AA.
 - Rodapé removido a pedido do usuário (componente ApplicationFooter excluído).
+- Estados de loading: skeletons por rota (loading.tsx), spinner em botões ocupados, botão de salvar segue ocupado até a navegação terminar, retry da lista com estado próprio.
