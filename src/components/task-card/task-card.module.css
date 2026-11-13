@@ -1,64 +1,132 @@
-.taskCard {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 20px 22px;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-medium);
-    background: var(--color-surface);
-    box-shadow: var(--shadow-card);
+﻿.taskCard {
+    position: relative;
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr) auto;
+    gap: var(--space-lg);
+    align-items: start;
+    padding: var(--space-md) 0 var(--space-md) var(--space-sm);
+    border-top: var(--hairline) solid var(--color-rule);
+    transition: background-color var(--dur-short) var(--ease-out);
 }
 
-.taskCardContent {
+.taskCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--color-accent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform var(--dur-short) var(--ease-out);
+}
+
+.taskCard:focus-within {
+    background: var(--color-paper-2);
+}
+
+.taskCard:focus-within::before {
+    transform: scaleY(1);
+}
+
+.taskCardDate {
+    display: grid;
+    gap: var(--space-3xs);
+    padding-top: var(--space-3xs);
+    color: var(--color-ink-2);
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+}
+
+.taskCardDateDay {
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+}
+
+.taskCardDateTime {
+    color: var(--color-ink-3);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+}
+
+.taskCardTimeZone {
+    margin-left: var(--space-3xs);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+}
+
+.taskCardBody {
     min-width: 0;
 }
 
 .taskCardTitle {
-    margin: 0;
-    font-size: 1.02rem;
-    letter-spacing: -0.01em;
-    line-height: 1.35;
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.12;
+    overflow-wrap: anywhere;
 }
 
 .taskCardDescription {
-    margin: 6px 0 0;
-    color: #45423d;
-    font-size: 0.92rem;
+    max-width: 62ch;
+    margin-top: var(--space-2xs);
+    color: var(--color-ink-2);
+    font-size: var(--text-sm);
+    line-height: 1.6;
 }
 
 .taskCardEmptyDescription {
-    margin: 6px 0 0;
-    color: var(--color-muted);
-    font-size: 0.88rem;
+    margin-top: var(--space-2xs);
+    color: var(--color-ink-3);
+    font-size: var(--text-sm);
     font-style: italic;
-}
-
-.taskCardMetadata {
-    margin: 12px 0 0;
-    color: var(--color-muted);
-    font-size: 0.78rem;
 }
 
 .taskCardActions {
     display: flex;
-    flex-shrink: 0;
     align-items: center;
-    gap: 8px;
+    justify-content: flex-end;
+    gap: var(--space-md);
+    min-width: 132px;
+    padding-top: var(--space-2xs);
 }
 
-@media (max-width: 640px) {
+@media (hover: hover) {
+    .taskCard:hover {
+        background: var(--color-paper-2);
+    }
+
+    .taskCard:hover::before {
+        transform: scaleY(1);
+    }
+}
+
+@media (max-width: 760px) {
     .taskCard {
-        flex-direction: column;
-        gap: 16px;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-2xs);
+        padding: var(--space-md) 0 var(--space-md) var(--space-sm);
+    }
+
+    .taskCardDate {
+        display: flex;
+        align-items: baseline;
+        gap: var(--space-2xs);
+        padding-top: 0;
+    }
+
+    .taskCardTitle {
+        font-size: var(--text-lg);
     }
 
     .taskCardActions {
-        width: 100%;
-    }
-
-    .taskCardActions > * {
-        flex: 1;
-        justify-content: center;
+        justify-content: flex-start;
+        gap: var(--space-lg);
+        min-width: 0;
+        padding-top: var(--space-xs);
     }
 }

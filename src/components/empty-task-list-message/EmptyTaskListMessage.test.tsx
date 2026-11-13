@@ -6,7 +6,10 @@ describe("EmptyTaskListMessage", () => {
     it("renders the empty state with a link to create a task", () => {
         render(<EmptyTaskListMessage />);
 
-        expect(screen.getByRole("heading", { name: "No tasks yet" })).toBeInTheDocument();
-        expect(screen.getByRole("link", { name: "Create a task" })).toHaveAttribute("href", "/tasks/new");
+        expect(screen.getByRole("heading", { name: "The ledger is empty." })).toBeInTheDocument();
+        expect(screen.getByRole("link", { name: "Add the first task" })).toHaveAttribute(
+            "href",
+            "/tasks/new",
+        );
     });
 });

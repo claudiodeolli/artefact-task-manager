@@ -23,18 +23,31 @@ export default function TaskForm({ initialTask }: TaskFormProperties) {
     } = useTaskFormController(initialTask);
 
     const isEditingTask = Boolean(initialTask);
+    const idleSubmitButtonLabel = isEditingTask ? "Save changes" : "Add task";
+    const pendingSubmitButtonLabel = isEditingTask ? "Saving…" : "Adding…";
+    const submitButtonLabel = isSubmittingTask ? pendingSubmitButtonLabel : idleSubmitButtonLabel;
 
     return (
         <section className={styles.taskFormPage}>
-            <header className={styles.taskFormHeader}>
-                <p className={styles.taskFormEyebrow}>{isEditingTask ? "Edit task" : "New task"}</p>
-                <h1 className={styles.taskFormTitle}>{isEditingTask ? "Update the task details" : "Create a task"}</h1>
+            <div className={styles.taskFormIntro}>
+                <p className={styles.taskFormEyebrow}>{isEditingTask ? "Edit entry" : "New entry"}</p>
+                <h1 className={styles.taskFormTitle}>
+                    {isEditingTask ? "Revise the entry." : "Write it down."}
+                </h1>
                 <p className={styles.taskFormDescription}>
                     {isEditingTask
-                        ? "Change the title or the description and save your updates."
-                        : "Add a title and an optional description to create a new task."}
+                        ? "Change what moved. The rest of the ledger stays as it was."
+                        : "A clear title is enough. Add context if it helps the next person."}
                 </p>
-            </header>
+
+                <div className={styles.taskFormNote}>
+                    <p className={styles.taskFormNoteLabel}>A good entry</p>
+                    <p className={styles.taskFormNoteText}>
+                        A title that starts with a verb. A description with the one detail someone
+                        would otherwise have to ask for.
+                    </p>
+                </div>
+            </div>
 
             <form className={styles.taskForm} onSubmit={handleTaskFormSubmit} noValidate>
                 <FeedbackMessage message={submissionErrorMessage} tone="error" />
@@ -50,6 +63,7 @@ export default function TaskForm({ initialTask }: TaskFormProperties) {
                         className={styles.taskFormInput}
                         value={title}
                         onChange={handleTitleChange}
+                        placeholder="What needs to happen?"
                         maxLength={120}
                         autoComplete="off"
                         aria-invalid={validationMessage ? true : undefined}
@@ -75,6 +89,7 @@ export default function TaskForm({ initialTask }: TaskFormProperties) {
                         className={styles.taskFormTextarea}
                         value={description}
                         onChange={handleDescriptionChange}
+                        placeholder="The detail someone would otherwise have to ask for."
                         maxLength={600}
                         rows={5}
                         aria-describedby="task-description-hint"
@@ -84,11 +99,20 @@ export default function TaskForm({ initialTask }: TaskFormProperties) {
                     </p>
                 </div>
 
-                <FeedbackMessage id="task-form-validation-message" message={validationMessage} tone="error" />
+                <FeedbackMessage
+                    id="task-form-validation-message"
+                    message={validationMessage}
+                    tone="error"
+                />
 
                 <div className={styles.taskFormActions}>
-                    <button type="submit" className="primaryButton" disabled={isSubmittingTask} aria-busy={isSubmittingTask}>
-                        {isSubmittingTask ? "Saving..." : isEditingTask ? "Save changes" : "Create task"}
+                    <button
+                        type="submit"
+                        className="primaryButton"
+                        disabled={isSubmittingTask}
+                        aria-busy={isSubmittingTask}
+                    >
+                        {submitButtonLabel}
                     </button>
                     <Link href="/" className="secondaryButton">
                         Cancel

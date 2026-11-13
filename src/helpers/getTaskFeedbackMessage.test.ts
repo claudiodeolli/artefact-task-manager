@@ -3,11 +3,11 @@ import getTaskFeedbackMessage from "./getTaskFeedbackMessage";
 
 describe("getTaskFeedbackMessage", () => {
     it("returns the message for a created task", () => {
-        expect(getTaskFeedbackMessage("created")).toBe("Task created successfully.");
+        expect(getTaskFeedbackMessage("created")).toBe("Entry added to the ledger.");
     });
 
     it("returns the message for an updated task", () => {
-        expect(getTaskFeedbackMessage("updated")).toBe("Task updated successfully.");
+        expect(getTaskFeedbackMessage("updated")).toBe("Entry updated in the ledger.");
     });
 
     it("returns null for an unknown status", () => {

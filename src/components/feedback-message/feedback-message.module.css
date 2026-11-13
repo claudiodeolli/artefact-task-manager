@@ -1,19 +1,52 @@
 .feedbackMessage {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    gap: var(--space-sm);
     margin: 0;
-    padding: 12px 14px;
-    border: 1px solid transparent;
-    border-radius: 10px;
-    font-size: 0.9rem;
+    padding: var(--space-sm) var(--space-md);
+    border-left: 3px solid var(--color-rule-strong);
+    background: var(--color-paper-2);
+    font-size: var(--text-sm);
+    line-height: 1.5;
 }
 
 .feedbackMessageSuccess {
-    border-color: #cfe3d8;
+    border-left-color: var(--color-success);
     background: var(--color-success-soft);
-    color: #1d5c45;
 }
 
 .feedbackMessageError {
-    border-color: #f1cfc7;
-    background: var(--color-danger-soft);
-    color: #8a2c1f;
+    border-left-color: var(--color-accent);
+    background: var(--color-accent-soft);
+}
+
+.feedbackMessageLabel {
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.feedbackMessageSuccess .feedbackMessageLabel {
+    color: var(--color-success);
+}
+
+.feedbackMessageError .feedbackMessageLabel {
+    color: var(--color-accent-strong);
+}
+
+.feedbackMessageText {
+    min-width: 0;
+    color: var(--color-ink);
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+    .feedbackMessage {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-3xs);
+    }
 }

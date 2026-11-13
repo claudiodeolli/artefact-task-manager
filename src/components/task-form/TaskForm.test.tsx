@@ -42,10 +42,10 @@ describe("TaskForm", () => {
     it("renders the creation form with empty fields", () => {
         render(<TaskForm />);
 
-        expect(screen.getByRole("heading", { name: "Create a task" })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: "Write it down." })).toBeInTheDocument();
         expect(screen.getByLabelText("Title")).toHaveValue("");
         expect(screen.getByLabelText("Description")).toHaveValue("");
-        expect(screen.getByRole("button", { name: "Create task" })).toBeEnabled();
+        expect(screen.getByRole("button", { name: "Add task" })).toBeEnabled();
     });
 
     it("renders the editing form with the task values", () => {
@@ -53,7 +53,7 @@ describe("TaskForm", () => {
 
         render(<TaskForm initialTask={initialTask} />);
 
-        expect(screen.getByRole("heading", { name: "Update the task details" })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: "Revise the entry." })).toBeInTheDocument();
         expect(screen.getByLabelText("Title")).toHaveValue("Review the media plan");
         expect(screen.getByLabelText("Description")).toHaveValue("Check the budget allocation.");
         expect(screen.getByRole("button", { name: "Save changes" })).toBeInTheDocument();
@@ -62,13 +62,17 @@ describe("TaskForm", () => {
     it("submits the form and forwards the field changes", () => {
         render(<TaskForm />);
 
-        fireEvent.change(screen.getByLabelText("Title"), { target: { value: "Plan the discovery workshop" } });
-        fireEvent.change(screen.getByLabelText("Description"), { target: { value: "Invite the client team." } });
+        fireEvent.change(screen.getByLabelText("Title"), {
+            target: { value: "Plan the discovery workshop" },
+        });
+        fireEvent.change(screen.getByLabelText("Description"), {
+            target: { value: "Invite the client team." },
+        });
 
         expect(handleTitleChange).toHaveBeenCalledTimes(1);
         expect(handleDescriptionChange).toHaveBeenCalledTimes(1);
 
-        fireEvent.submit(screen.getByRole("button", { name: "Create task" }).closest("form") as HTMLFormElement);
+        fireEvent.submit(screen.getByRole("button", { name: "Add task" }).closest("form") as HTMLFormElement);
 
         expect(handleTaskFormSubmit).toHaveBeenCalledTimes(1);
     });
@@ -94,11 +98,19 @@ describe("TaskForm", () => {
         expect(screen.getByRole("alert")).toHaveTextContent("Title must contain at most 120 characters.");
     });
 
-    it("disables the submit button while the task is being saved", () => {
+    it("disables the submit button while the task is being created", () => {
         mockTaskFormController({ isSubmittingTask: true });
 
         render(<TaskForm />);
 
-        expect(screen.getByRole("button", { name: "Saving..." })).toBeDisabled();
+        expect(screen.getByRole("button", { name: "Adding…" })).toBeDisabled();
+    });
+
+    it("shows the saving state while an existing task is updated", () => {
+        mockTaskFormController({ isSubmittingTask: true });
+
+        render(<TaskForm initialTask={initialTask} />);
+
+        expect(screen.getByRole("button", { name: "Saving…" })).toBeDisabled();
     });
 });

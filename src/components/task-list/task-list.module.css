@@ -1,44 +1,88 @@
-.taskListPage {
+﻿.taskListPage {
     display: grid;
-    gap: 20px;
+    gap: var(--space-lg);
+    width: 100%;
+    max-width: 1040px;
 }
 
 .taskListHeader {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: var(--hairline) solid var(--color-rule);
+}
+
+.taskListHeading {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-xs);
 }
 
 .taskListEyebrow {
-    margin: 0 0 4px;
-    color: var(--color-muted);
-    font-size: 0.72rem;
-    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
 }
 
+.taskListEyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--color-accent);
+}
+
 .taskListTitle {
-    margin: 0;
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
+    max-width: 14ch;
+    font-size: var(--text-display);
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+    overflow-wrap: anywhere;
 }
 
-.taskListSummary {
-    margin: 8px 0 0;
-    color: var(--color-muted);
-    font-size: 0.9rem;
+.taskListDescription {
+    max-width: 46ch;
+    color: var(--color-ink-2);
+    font-size: 0.9375rem;
+    line-height: 1.6;
 }
 
-.taskList {
+.taskListCount {
     display: grid;
-    gap: 12px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+    justify-items: end;
+    gap: var(--space-3xs);
+    padding-left: var(--space-lg);
+    border-left: var(--hairline) solid var(--color-rule);
+}
+
+.taskListCountNumber {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.04em;
+    line-height: 0.85;
+}
+
+.taskListCountLabel {
+    color: var(--color-ink-2);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.taskListCountShown {
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .taskListError {
@@ -46,17 +90,91 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: var(--space-sm);
+}
+
+.taskListError > p {
+    flex: 1 1 320px;
+}
+
+.taskListEntries {
+    display: grid;
+    gap: 0;
+}
+
+.taskListColumnLabels {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr) auto;
+    gap: var(--space-lg);
+    padding: 0 var(--space-sm) var(--space-2xs) var(--space-sm);
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.taskListColumnLabels span:last-child {
+    justify-self: end;
+}
+
+.taskList {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.taskListLoadMore {
+    justify-self: start;
+    margin-top: var(--space-sm);
 }
 
 .taskListLoadingMore {
-    margin: 0;
-    color: var(--color-muted);
-    font-size: 0.9rem;
-    text-align: center;
+    margin-top: var(--space-sm);
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 .taskListScrollSentinel {
     width: 100%;
     height: 1px;
+}
+
+@media (max-width: 900px) {
+    .taskListTitle {
+        font-size: clamp(2.75rem, 8vw, 4rem);
+    }
+}
+
+@media (max-width: 760px) {
+    .taskListHeader {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-md);
+        padding-bottom: var(--space-md);
+    }
+
+    .taskListCount {
+        grid-auto-flow: column;
+        align-items: baseline;
+        justify-content: start;
+        justify-items: start;
+        gap: var(--space-2xs);
+        padding-top: var(--space-xs);
+        padding-left: 0;
+        border-top: var(--hairline) solid var(--color-rule);
+        border-left: 0;
+    }
+
+    .taskListCountNumber {
+        font-size: 2.75rem;
+    }
+
+    .taskListColumnLabels {
+        display: none;
+    }
 }

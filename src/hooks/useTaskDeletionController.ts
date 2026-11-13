@@ -18,7 +18,7 @@ export default function useTaskDeletionController(initialFeedbackMessage: string
             { taskId },
             {
                 onSuccess: () => {
-                    setFeedbackMessage("Task deleted successfully.");
+                    setFeedbackMessage("Entry removed from the ledger.");
                     setFeedbackTone("success");
                 },
                 onError: (error) => {

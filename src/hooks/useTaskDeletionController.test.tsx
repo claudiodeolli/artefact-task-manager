@@ -50,7 +50,7 @@ describe("useTaskDeletionController", () => {
             deletionCallbacks?.onSuccess?.();
         });
 
-        expect(result.current.feedbackMessage).toBe("Task deleted successfully.");
+        expect(result.current.feedbackMessage).toBe("Entry removed from the ledger.");
         expect(result.current.feedbackTone).toBe("success");
 
         act(() => {

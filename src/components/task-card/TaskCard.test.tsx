@@ -15,10 +15,17 @@ describe("TaskCard", () => {
         render(<TaskCard task={task} isDeleting={false} onDeleteRequested={vi.fn()} />);
 
         expect(screen.getByRole("heading", { name: "Prepare the weekly analytics review" })).toBeInTheDocument();
-        expect(
-            screen.getByText("Consolidate the campaign metrics and share the summary with the team."),
-        ).toBeInTheDocument();
-        expect(screen.getByText("Nov 12, 2026, 3:45 PM")).toBeInTheDocument();
+        expect(screen.getByText("Consolidate the campaign metrics and share the summary with the team.")).toBeInTheDocument();
+        expect(screen.getByText("2026.11.12")).toBeInTheDocument();
+        expect(screen.getByText("15:45", { exact: false })).toBeInTheDocument();
+        expect(screen.getByText("2026.11.12").closest("time")).toHaveAttribute(
+            "aria-label",
+            "Created Nov 12, 2026, 3:45 PM UTC",
+        );
+        expect(screen.getByText("2026.11.12").closest("time")).toHaveAttribute(
+            "datetime",
+            "2026-11-12T15:45:00.000Z",
+        );
         expect(screen.getByRole("link", { name: "Edit" })).toHaveAttribute(
             "href",
             "/tasks/task-identifier/edit",
@@ -28,7 +35,7 @@ describe("TaskCard", () => {
     it("shows a fallback text when the task has no description", () => {
         render(<TaskCard task={{ ...task, description: null }} isDeleting={false} onDeleteRequested={vi.fn()} />);
 
-        expect(screen.getByText("No description provided.")).toBeInTheDocument();
+        expect(screen.getByText("No description added.")).toBeInTheDocument();
     });
 
     it("requests the deletion of the task", () => {
@@ -44,6 +51,6 @@ describe("TaskCard", () => {
     it("disables the delete button while the task is being deleted", () => {
         render(<TaskCard task={task} isDeleting onDeleteRequested={vi.fn()} />);
 
-        expect(screen.getByRole("button", { name: "Deleting..." })).toBeDisabled();
+        expect(screen.getByRole("button", { name: "Deleting…" })).toBeDisabled();
     });
 });

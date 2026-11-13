@@ -1,6 +1,7 @@
 "use client";
 
 import formatTaskCreationDate from "@/helpers/formatTaskCreationDate";
+import formatTaskCreationDateCompact from "@/helpers/formatTaskCreationDateCompact";
 import type { TaskDto } from "@/models/TaskDto";
 import Link from "next/link";
 import styles from "./task-card.module.css";
@@ -12,19 +13,31 @@ type TaskCardProperties = {
 };
 
 export default function TaskCard({ task, isDeleting, onDeleteRequested }: TaskCardProperties) {
+    const compactCreationDate = formatTaskCreationDateCompact(task.createdAt);
+
     return (
         <article className={styles.taskCard}>
-            <div className={styles.taskCardContent}>
+            <time
+                className={styles.taskCardDate}
+                dateTime={task.createdAt}
+                aria-label={`Created ${formatTaskCreationDate(task.createdAt)} UTC`}
+            >
+                <span className={styles.taskCardDateDay}>{compactCreationDate.date}</span>
+                <span className={styles.taskCardDateTime}>
+                    {compactCreationDate.time}
+                    <span className={styles.taskCardTimeZone}>UTC</span>
+                </span>
+            </time>
+
+            <div className={styles.taskCardBody}>
                 <h2 className={styles.taskCardTitle}>{task.title}</h2>
                 {task.description ? (
                     <p className={styles.taskCardDescription}>{task.description}</p>
                 ) : (
-                    <p className={styles.taskCardEmptyDescription}>No description provided.</p>
+                    <p className={styles.taskCardEmptyDescription}>No description added.</p>
                 )}
-                <p className={styles.taskCardMetadata}>
-                    Created <time dateTime={task.createdAt}>{formatTaskCreationDate(task.createdAt)}</time>
-                </p>
             </div>
+
             <div className={styles.taskCardActions}>
                 <Link href={`/tasks/${task.id}/edit`} className="secondaryButton">
                     Edit
@@ -36,7 +49,7 @@ export default function TaskCard({ task, isDeleting, onDeleteRequested }: TaskCa
                     disabled={isDeleting}
                     aria-busy={isDeleting}
                 >
-                    {isDeleting ? "Deleting..." : "Delete"}
+                    {isDeleting ? "Deleting…" : "Delete"}
                 </button>
             </div>
         </article>

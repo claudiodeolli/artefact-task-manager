@@ -13,10 +13,12 @@ export default function FeedbackMessage({ message, tone, id }: FeedbackMessagePr
     }
 
     const toneClassName = tone === "error" ? styles.feedbackMessageError : styles.feedbackMessageSuccess;
+    const label = tone === "error" ? "Error" : "Noted";
 
     return (
         <p id={id} role={tone === "error" ? "alert" : "status"} className={`${styles.feedbackMessage} ${toneClassName}`}>
-            {message}
+            <span className={styles.feedbackMessageLabel}>{label}</span>
+            <span className={styles.feedbackMessageText}>{message}</span>
         </p>
     );
 }

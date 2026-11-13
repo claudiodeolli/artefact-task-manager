@@ -1,6 +1,6 @@
 const taskFeedbackMessageByStatus: Readonly<Record<string, string>> = {
-    created: "Task created successfully.",
-    updated: "Task updated successfully.",
+    created: "Entry added to the ledger.",
+    updated: "Entry updated in the ledger.",
 };
 
 export default function getTaskFeedbackMessage(status?: string | null): string | null {

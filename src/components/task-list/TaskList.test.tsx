@@ -39,6 +39,7 @@ const initialTaskPage: TaskListPage = {
 
 const deleteTaskById = vi.fn();
 const retryTaskListLoading = vi.fn();
+const loadMoreTasks = vi.fn();
 
 const mockTaskListQuery = (overrides: Record<string, unknown> = {}) => {
     vi.mocked(useTaskListInfiniteQuery).mockReturnValue({
@@ -48,7 +49,7 @@ const mockTaskListQuery = (overrides: Record<string, unknown> = {}) => {
         isLoadingMoreTasks: false,
         hasMoreTasks: false,
         taskListErrorMessage: null,
-        loadMoreTasks: vi.fn(),
+        loadMoreTasks,
         retryTaskListLoading,
         ...overrides,
     });
@@ -75,8 +76,9 @@ describe("TaskList", () => {
     it("renders the tasks and the list summary", () => {
         render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage={null} />);
 
-        expect(screen.getByRole("heading", { name: "Tasks" })).toBeInTheDocument();
-        expect(screen.getByText("Showing 2 of 2 tasks")).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: "Tasks, in order." })).toBeInTheDocument();
+        expect(screen.getByLabelText("2 entries in the ledger")).toBeInTheDocument();
+        expect(screen.getByText("2 shown")).toBeInTheDocument();
         expect(screen.getByRole("heading", { name: "Prepare the weekly analytics review" })).toBeInTheDocument();
         expect(screen.getByRole("heading", { name: "Review the customer segmentation model" })).toBeInTheDocument();
     });
@@ -86,25 +88,33 @@ describe("TaskList", () => {
 
         render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage={null} />);
 
-        expect(screen.getByRole("heading", { name: "No tasks yet" })).toBeInTheDocument();
-        expect(screen.getByRole("link", { name: "Create a task" })).toHaveAttribute("href", "/tasks/new");
+        expect(screen.getByRole("heading", { name: "The ledger is empty." })).toBeInTheDocument();
+        expect(screen.getByRole("link", { name: "Add the first task" })).toHaveAttribute(
+            "href",
+            "/tasks/new",
+        );
     });
 
     it("renders the feedback message received from the page", () => {
-        mockTaskDeletion({ feedbackMessage: "Task created successfully." });
+        mockTaskDeletion({ feedbackMessage: "Entry added to the ledger." });
 
-        render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage="Task created successfully." />);
+        render(
+            <TaskList
+                initialTaskPage={initialTaskPage}
+                initialFeedbackMessage="Entry added to the ledger."
+            />,
+        );
 
-        expect(useTaskDeletionController).toHaveBeenCalledWith("Task created successfully.");
-        expect(screen.getByRole("status")).toHaveTextContent("Task created successfully.");
+        expect(useTaskDeletionController).toHaveBeenCalledWith("Entry added to the ledger.");
+        expect(screen.getByRole("status")).toHaveTextContent("Entry added to the ledger.");
     });
 
     it("renders the list error and retries the loading", () => {
-        mockTaskListQuery({ taskListErrorMessage: "The task list could not be loaded." });
+        mockTaskListQuery({ taskListErrorMessage: "The ledger could not be loaded." });
 
         render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage={null} />);
 
-        expect(screen.getByRole("alert")).toHaveTextContent("The task list could not be loaded.");
+        expect(screen.getByRole("alert")).toHaveTextContent("The ledger could not be loaded.");
 
         fireEvent.click(screen.getByRole("button", { name: "Try again" }));
 
@@ -124,7 +134,17 @@ describe("TaskList", () => {
 
         render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage={null} />);
 
-        expect(screen.getByRole("button", { name: "Deleting..." })).toBeDisabled();
+        expect(screen.getByRole("button", { name: "Deleting…" })).toBeDisabled();
+    });
+
+    it("offers a manual load more action for the next page", () => {
+        mockTaskListQuery({ hasMoreTasks: true });
+
+        render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage={null} />);
+
+        fireEvent.click(screen.getByRole("button", { name: "Load more entries" }));
+
+        expect(loadMoreTasks).toHaveBeenCalledTimes(1);
     });
 
     it("shows the incremental loading message", () => {
@@ -132,7 +152,7 @@ describe("TaskList", () => {
 
         render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage={null} />);
 
-        expect(screen.getByRole("status")).toHaveTextContent("Loading more tasks...");
+        expect(screen.getByRole("status")).toHaveTextContent("Loading entries…");
     });
 
     it("shows the initial loading message while the list is loading", () => {
@@ -140,6 +160,6 @@ describe("TaskList", () => {
 
         render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage={null} />);
 
-        expect(screen.getByRole("status")).toHaveTextContent("Loading tasks...");
+        expect(screen.getByRole("status")).toHaveTextContent("Loading entries…");
     });
 });

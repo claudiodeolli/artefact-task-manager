@@ -1,23 +1,39 @@
-.emptyTaskListMessage {
+﻿.emptyTaskListMessage {
     display: grid;
-    justify-items: center;
-    gap: 10px;
-    padding: 56px 24px;
-    border: 1px dashed var(--color-border);
-    border-radius: var(--radius-medium);
-    background: rgba(255, 255, 255, 0.6);
-    text-align: center;
+    justify-items: start;
+    gap: var(--space-xs);
+    max-width: 52ch;
+    padding: var(--space-xl) 0;
+    border-top: var(--hairline) solid var(--color-rule);
+}
+
+.emptyTaskListEyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.emptyTaskListEyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--color-accent);
 }
 
 .emptyTaskListTitle {
-    margin: 0;
-    font-size: 1.05rem;
-    letter-spacing: -0.01em;
+    font-size: var(--text-2xl);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    overflow-wrap: anywhere;
 }
 
 .emptyTaskListDescription {
-    max-width: 420px;
-    margin: 0;
-    color: var(--color-muted);
-    font-size: 0.9rem;
+    color: var(--color-ink-2);
+    font-size: 0.9375rem;
+    line-height: 1.6;
 }

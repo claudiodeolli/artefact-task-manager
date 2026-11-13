@@ -1,101 +1,193 @@
-.taskFormPage {
+﻿.taskFormPage {
     display: grid;
-    gap: 24px;
-    max-width: 620px;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+    gap: var(--space-2xl);
+    width: 100%;
+    max-width: 1040px;
 }
 
-.taskFormHeader {
+.taskFormIntro {
+    position: sticky;
+    top: var(--space-xl);
     display: grid;
-    gap: 6px;
+    gap: var(--space-md);
 }
 
 .taskFormEyebrow {
-    margin: 0;
-    color: var(--color-muted);
-    font-size: 0.72rem;
-    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
 }
 
+.taskFormEyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--color-accent);
+}
+
 .taskFormTitle {
-    margin: 0;
-    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
-    letter-spacing: -0.03em;
-    line-height: 1.15;
+    max-width: 12ch;
+    font-size: var(--text-display-s);
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+    overflow-wrap: anywhere;
 }
 
 .taskFormDescription {
-    margin: 0;
-    color: var(--color-muted);
-    font-size: 0.92rem;
+    max-width: 48ch;
+    color: var(--color-ink-2);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+.taskFormNote {
+    display: grid;
+    gap: var(--space-2xs);
+    margin-top: var(--space-md);
+    padding-top: var(--space-sm);
+    border-top: var(--hairline) solid var(--color-rule);
+}
+
+.taskFormNoteLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.taskFormNoteLabel::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    background: var(--color-accent);
+}
+
+.taskFormNoteText {
+    max-width: 34ch;
+    color: var(--color-ink-2);
+    font-size: 0.875rem;
+    line-height: 1.6;
 }
 
 .taskForm {
     display: grid;
-    gap: 18px;
-    padding: 26px;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-medium);
-    background: var(--color-surface);
-    box-shadow: var(--shadow-card);
+    gap: var(--space-lg);
+    padding-left: var(--space-xl);
+    border-left: var(--hairline) solid var(--color-rule);
 }
 
 .taskFormField {
     display: grid;
-    gap: 6px;
+    gap: var(--space-2xs);
 }
 
 .taskFormLabel {
-    font-size: 0.82rem;
-    font-weight: 650;
+    color: var(--color-ink-2);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
 }
 
 .taskFormInput,
 .taskFormTextarea {
     width: 100%;
-    padding: 10px 12px;
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
-    background: #ffffff;
+    padding: var(--space-2xs) 0 var(--space-xs);
+    border: 0;
+    border-bottom: var(--hairline) solid var(--color-rule-strong);
+    border-radius: var(--radius-input);
+    background: transparent;
     color: var(--color-ink);
-    transition:
-        border-color 120ms ease,
-        box-shadow 120ms ease;
+    transition: border-color var(--dur-short) var(--ease-out);
+}
+
+.taskFormInput {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
 }
 
 .taskFormTextarea {
+    min-height: 180px;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.6;
     resize: vertical;
-    min-height: 120px;
+}
+
+.taskFormInput::placeholder,
+.taskFormTextarea::placeholder {
+    color: var(--color-ink-3);
+    opacity: 1;
+}
+
+.taskFormInput:hover,
+.taskFormTextarea:hover {
+    border-bottom-color: var(--color-ink-3);
 }
 
 .taskFormInput:focus,
 .taskFormTextarea:focus {
-    border-color: var(--color-accent);
-    outline: 2px solid transparent;
-    box-shadow: 0 0 0 3px rgba(31, 77, 63, 0.16);
+    border-bottom-color: var(--color-accent);
 }
 
 .taskFormInput[aria-invalid="true"] {
-    border-color: var(--color-danger);
+    border-bottom-color: var(--color-accent);
 }
 
 .taskFormHint {
-    margin: 0;
-    color: var(--color-muted);
-    font-size: 0.76rem;
+    color: var(--color-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
 }
 
 .taskFormActions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 12px;
-    margin-top: 4px;
+    gap: var(--space-md);
+    margin-top: var(--space-2xs);
+}
+
+@media (max-width: 900px) {
+    .taskFormPage {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-lg);
+        max-width: 640px;
+    }
+
+    .taskFormIntro {
+        position: static;
+    }
+
+    .taskForm {
+        padding-top: var(--space-lg);
+        padding-left: 0;
+        border-top: var(--hairline) solid var(--color-rule);
+        border-left: 0;
+    }
 }
 
 @media (max-width: 600px) {
+    .taskFormInput {
+        font-size: var(--text-lg);
+    }
+
     .taskForm {
-        padding: 20px;
+        gap: var(--space-md);
     }
 }
