@@ -2,13 +2,16 @@
 
 import EmptyTaskListMessage from "@/components/empty-task-list-message/EmptyTaskListMessage";
 import FeedbackMessage from "@/components/feedback-message/FeedbackMessage";
+import DeleteTaskConfirmationDialog from "@/components/delete-task-confirmation-dialog/DeleteTaskConfirmationDialog";
 import TaskCard from "@/components/task-card/TaskCard";
 import TaskListSkeleton from "@/components/task-list-skeleton/TaskListSkeleton";
 import useInfiniteScrollTrigger from "@/hooks/useInfiniteScrollTrigger";
 import useStatusQueryParameterCleanup from "@/hooks/useStatusQueryParameterCleanup";
 import useTaskDeletionController from "@/hooks/useTaskDeletionController";
 import useTaskListInfiniteQuery from "@/hooks/useTaskListInfiniteQuery";
+import type { TaskDto } from "@/models/TaskDto";
 import type { TaskListPage } from "@/models/TaskListPage";
+import { useState } from "react";
 import styles from "./task-list.module.css";
 import TaskListIntro from "./TaskListIntro";
 
@@ -33,6 +36,8 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
     const { feedbackMessage, feedbackTone, deletingTaskIds, deleteTaskById } =
         useTaskDeletionController(initialFeedbackMessage);
 
+    const [taskPendingDeletion, setTaskPendingDeletion] = useState<TaskDto | null>(null);
+
     useStatusQueryParameterCleanup();
 
     const infiniteScrollSentinelReference = useInfiniteScrollTrigger({
@@ -41,6 +46,25 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
             void loadMoreTasks();
         },
     });
+
+    const requestTaskDeletion = (taskId: string) => {
+        const task = taskDtoList.find((candidate) => candidate.id === taskId);
+
+        if (task) {
+            setTaskPendingDeletion(task);
+        }
+    };
+
+    const confirmTaskDeletion = async () => {
+        const taskToDelete = taskPendingDeletion;
+
+        if (!taskToDelete) {
+            return;
+        }
+
+        await deleteTaskById(taskToDelete.id);
+        setTaskPendingDeletion(null);
+    };
 
     return (
         <section className={styles.taskListPage}>
@@ -92,7 +116,7 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
                                 <TaskCard
                                     task={task}
                                     isDeleting={deletingTaskIds.has(task.id)}
-                                    onDeleteRequested={(taskId) => void deleteTaskById(taskId)}
+                                    onDeleteRequested={requestTaskDeletion}
                                 />
                             </li>
                         ))}
@@ -120,6 +144,19 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
                 ref={infiniteScrollSentinelReference}
                 className={styles.taskListScrollSentinel}
                 aria-hidden="true"
+            />
+
+            <DeleteTaskConfirmationDialog
+                task={taskPendingDeletion}
+                isDeleting={
+                    taskPendingDeletion
+                        ? deletingTaskIds.has(taskPendingDeletion.id)
+                        : false
+                }
+                onCancel={() => setTaskPendingDeletion(null)}
+                onConfirm={() => {
+                    void confirmTaskDeletion();
+                }}
             />
         </section>
     );

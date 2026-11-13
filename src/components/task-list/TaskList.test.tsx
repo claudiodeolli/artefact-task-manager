@@ -2,7 +2,7 @@ import useInfiniteScrollTrigger from "@/hooks/useInfiniteScrollTrigger";
 import useTaskDeletionController from "@/hooks/useTaskDeletionController";
 import useTaskListInfiniteQuery from "@/hooks/useTaskListInfiniteQuery";
 import type { TaskListPage } from "@/models/TaskListPage";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import TaskList from "./TaskList";
 
@@ -37,7 +37,7 @@ const initialTaskPage: TaskListPage = {
     totalTaskCount: 2,
 };
 
-const deleteTaskById = vi.fn();
+const deleteTaskById = vi.fn().mockResolvedValue(undefined);
 const retryTaskListLoading = vi.fn();
 const loadMoreTasks = vi.fn();
 
@@ -136,12 +136,37 @@ describe("TaskList", () => {
         expect(retryButton).toHaveAttribute("aria-busy", "true");
     });
 
-    it("requests the deletion of a task", () => {
+    it("asks for confirmation before deleting a task", async () => {
         render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage={null} />);
 
         fireEvent.click(screen.getAllByRole("button", { name: "Delete" })[0]);
 
-        expect(deleteTaskById).toHaveBeenCalledWith("first-task");
+        const dialog = await screen.findByRole("dialog");
+
+        expect(within(dialog).getByText("Prepare the weekly analytics review")).toBeInTheDocument();
+        expect(deleteTaskById).not.toHaveBeenCalled();
+
+        fireEvent.click(within(dialog).getByRole("button", { name: "Delete entry" }));
+
+        await waitFor(() => {
+            expect(deleteTaskById).toHaveBeenCalledWith("first-task");
+            expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+        });
+    });
+
+    it("keeps the task when the deletion is cancelled", async () => {
+        render(<TaskList initialTaskPage={initialTaskPage} initialFeedbackMessage={null} />);
+
+        fireEvent.click(screen.getAllByRole("button", { name: "Delete" })[0]);
+
+        const dialog = await screen.findByRole("dialog");
+
+        fireEvent.click(within(dialog).getByRole("button", { name: "Cancel" }));
+
+        await waitFor(() => {
+            expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+        });
+        expect(deleteTaskById).not.toHaveBeenCalled();
     });
 
     it("shows the deletion state of the task being removed", () => {

@@ -1,0 +1,84 @@
+.dialog {
+    width: min(100% - 32px, 480px);
+    max-width: 480px;
+    max-height: calc(100% - 2 * var(--space-md));
+    margin: auto;
+    padding: 0;
+    overflow: auto;
+    border: var(--hairline) solid var(--color-rule);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    box-shadow: 0 24px 64px -40px var(--color-navy);
+}
+
+.dialog::backdrop {
+    background: color-mix(in oklab, var(--color-navy) 62%, transparent);
+}
+
+.dialogAccent {
+    height: var(--rule-motif);
+    background: var(--gradient-rule);
+}
+
+.dialogBody {
+    display: grid;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+}
+
+.dialogEyebrow {
+    color: var(--color-accent-strong);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: 1.2;
+}
+
+.dialogTitle {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+}
+
+.dialogDescription {
+    color: var(--color-ink-2);
+    font-size: var(--text-base);
+    line-height: 1.5;
+}
+
+.dialogTaskTitle {
+    padding: var(--space-xs) var(--space-sm);
+    border: var(--hairline) solid var(--color-rule);
+    background: var(--color-paper-2);
+    color: var(--color-ink);
+    font-size: var(--text-base);
+    font-weight: 500;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.dialogActions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-2xs);
+    margin-top: var(--space-2xs);
+    padding-top: var(--space-sm);
+    border-top: var(--hairline) solid var(--color-rule);
+}
+
+@media (max-width: 520px) {
+    .dialogBody {
+        padding: var(--space-md);
+    }
+
+    .dialogActions {
+        flex-direction: column;
+    }
+
+    .dialogActions > * {
+        width: 100%;
+    }
+}
