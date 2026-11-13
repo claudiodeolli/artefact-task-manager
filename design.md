@@ -14,8 +14,8 @@ Playful-leaning modern-minimal. Function carries the page; colour blocks give it
 
 ## Macrostructure family
 
-- App shell: a fixed black rail on the left (brand, ledger label, the vermilion New task action) and a cream working column on the right. Below 900px the rail becomes a sticky black top bar.
-- List page: Bento. A page head with a huge light title beside a black count tile, then a dense card grid. The newest task spans two columns as the black feature tile; the rest rotate through butter, mint, lilac, and sage.
+- App shell: no side menu. A sticky top bar on the cream canvas (brand, ledger label pill, the vermilion New task action) above a single centred working column.
+- List page: a page head with a huge light title beside a black count tile, then one vertical column of identical task cards. Every card has the same paper surface, butter date chip, and pill actions; the references lend aesthetics, not their layouts.
 - Form pages: two tiles side by side. A butter intro tile holding the title, instruction, and a black note tile; a white sheet holding the form. They stack below 1100px.
 - Empty and not-found states: a single full-width tile (lilac with a dot grid; black with a vermilion chip).
 
@@ -46,7 +46,7 @@ Accent is spent on the brand dot, the New task action, eyebrow dots, error state
 ## Motion
 
 - One page entrance: opacity plus 8px rise, 260ms, `--ease-out`.
-- Cards lift 3px on hover; buttons scale to 0.97–0.98 on press.
+- Cards lift 2px and turn lilac soft on hover; buttons scale to 0.97–0.98 on press.
 - Reduced motion removes spatial movement.
 
 ## Microinteractions

@@ -70,29 +70,17 @@ button {
 }
 
 .applicationLayout {
-    display: grid;
-    grid-template-columns: var(--rail-width) minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr) auto;
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
 }
 
-.applicationLayout > header {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-}
-
 .applicationMain {
-    grid-column: 2;
-    grid-row: 1;
+    flex: 1 0 auto;
     width: 100%;
     max-width: var(--page-max);
     margin-inline: auto;
     padding: var(--space-xl) var(--space-xl) var(--space-2xl);
-}
-
-.applicationLayout > footer {
-    grid-column: 2;
-    grid-row: 2;
 }
 
 .applicationMain > * {
@@ -259,25 +247,8 @@ button {
 }
 
 @media (max-width: 900px) {
-    .applicationLayout {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-rows: auto minmax(0, 1fr) auto;
-    }
-
-    .applicationLayout > header {
-        grid-column: 1;
-        grid-row: 1;
-    }
-
     .applicationMain {
-        grid-column: 1;
-        grid-row: 2;
         padding: var(--space-lg) var(--space-md) var(--space-2xl);
-    }
-
-    .applicationLayout > footer {
-        grid-column: 1;
-        grid-row: 3;
     }
 }
 
