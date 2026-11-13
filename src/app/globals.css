@@ -22,7 +22,7 @@ body {
     color: var(--color-ink);
     font-family: var(--font-body);
     font-size: var(--text-base);
-    line-height: 1.6;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
@@ -33,9 +33,9 @@ h3 {
     margin: 0;
     font-family: var(--font-display);
     font-style: normal;
-    font-weight: 300;
-    letter-spacing: -0.035em;
-    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
     text-wrap: balance;
 }
 
@@ -65,8 +65,8 @@ button {
 }
 
 ::selection {
-    background: var(--color-lilac);
-    color: var(--color-ink);
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
 }
 
 .applicationLayout {
@@ -80,7 +80,7 @@ button {
     width: 100%;
     max-width: var(--page-max);
     margin-inline: auto;
-    padding: var(--space-xl) var(--space-xl) var(--space-2xl);
+    padding: var(--space-2xl) var(--space-2xl) var(--space-3xl);
 }
 
 .applicationMain > * {
@@ -119,16 +119,15 @@ button {
     align-items: center;
     justify-content: center;
     gap: var(--space-2xs);
-    min-height: 48px;
-    padding: var(--space-2xs) var(--space-md);
-    border: var(--hairline) solid var(--color-ink);
+    min-height: 46px;
+    padding: var(--space-xs) var(--space-md);
+    border: var(--hairline) solid var(--color-accent-fill);
     border-radius: var(--radius-pill);
-    background: var(--color-ink);
-    color: var(--color-paper);
+    background: var(--color-accent-fill);
+    color: var(--color-accent-ink);
     font-family: var(--font-body);
-    font-size: var(--text-sm);
+    font-size: var(--text-base);
     font-weight: 500;
-    letter-spacing: -0.005em;
     line-height: 1;
     text-decoration: none;
     white-space: nowrap;
@@ -141,8 +140,8 @@ button {
 }
 
 .primaryButton:hover {
-    border-color: var(--color-ink-2);
-    background: var(--color-ink-2);
+    border-color: var(--color-navy);
+    background: var(--color-navy);
 }
 
 .primaryButton:active {
@@ -174,7 +173,6 @@ button {
     font-family: var(--font-body);
     font-size: var(--text-sm);
     font-weight: 500;
-    letter-spacing: -0.005em;
     line-height: 1.2;
     text-decoration: none;
     white-space: nowrap;
@@ -198,6 +196,7 @@ button {
 
 .dangerButton:hover {
     border-color: var(--color-accent-strong);
+    background: var(--color-accent-soft);
 }
 
 .secondaryButton:active,
@@ -231,7 +230,7 @@ button {
 @keyframes page-enter {
     from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(12px);
     }
 
     to {
@@ -242,7 +241,7 @@ button {
 
 @media (max-width: 1100px) {
     .applicationMain {
-        padding: var(--space-lg) var(--space-lg) var(--space-2xl);
+        padding: var(--space-xl) var(--space-lg) var(--space-2xl);
     }
 }
 

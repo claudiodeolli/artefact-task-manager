@@ -2,21 +2,22 @@ import ApplicationFooter from "@/components/application-footer/ApplicationFooter
 import ApplicationHeader from "@/components/application-header/ApplicationHeader";
 import ApplicationTrpcProvider from "@/trpc/client/ApplicationTrpcProvider";
 import type { Metadata } from "next";
-import { Geist, Inter_Tight } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import type { ReactNode } from "react";
 import "./tokens.css";
 import "./globals.css";
 
-const interTight = Inter_Tight({
+const ibmPlexSans = IBM_Plex_Sans({
     subsets: ["latin"],
-    weight: ["300", "400", "500"],
-    variable: "--font-inter-tight",
+    weight: ["400", "500", "600"],
+    variable: "--font-ibm-plex-sans",
     display: "swap",
 });
 
-const geist = Geist({
+const ibmPlexMono = IBM_Plex_Mono({
     subsets: ["latin"],
-    variable: "--font-geist",
+    weight: ["100", "400"],
+    variable: "--font-ibm-plex-mono",
     display: "swap",
 });
 
@@ -33,7 +34,7 @@ export default function RootLayout({ children }: RootLayoutProperties) {
     return (
         <html
             lang="en"
-            className={`${interTight.variable} ${geist.variable}`}
+            className={`${ibmPlexSans.variable} ${ibmPlexMono.variable}`}
         >
             <body>
                 <a href="#main-content" className="skipLink">

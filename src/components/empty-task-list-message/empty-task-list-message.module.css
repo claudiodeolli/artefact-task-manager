@@ -1,57 +1,51 @@
 ﻿.emptyTaskListMessage {
     display: grid;
     justify-items: start;
-    align-content: end;
     gap: var(--space-sm);
-    min-height: 340px;
-    padding: var(--space-xl) var(--space-lg) var(--space-lg);
-    border-radius: var(--radius-tile);
-    background-color: var(--color-lilac);
-    background-image: radial-gradient(circle, var(--color-lilac-soft) 1.2px, transparent 1.6px);
-    background-size: 18px 18px;
-    background-position: right top;
+    padding: var(--space-xl) var(--space-lg);
+    border: var(--hairline) solid var(--color-rule);
+    background: var(--color-paper);
 }
 
 .emptyTaskListEyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2xs);
-    color: var(--color-ink);
+    color: var(--color-accent-strong);
+    font-family: var(--font-mono);
     font-size: var(--text-sm);
 }
 
-.emptyTaskListEyebrow::after {
-    content: "";
-    width: 40px;
-    height: var(--hairline);
-    background: var(--color-ink);
-}
-
 .emptyTaskListTitle {
-    max-width: 14ch;
+    position: relative;
+    max-width: 16ch;
     min-width: 0;
-    font-size: var(--text-3xl);
-    letter-spacing: -0.04em;
-    line-height: 1;
+    padding-bottom: var(--space-md);
+    font-size: var(--text-2xl);
     overflow-wrap: anywhere;
 }
 
+.emptyTaskListTitle::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 120px;
+    height: var(--rule-motif);
+    background: var(--gradient-rule);
+}
+
 .emptyTaskListDescription {
-    max-width: 44ch;
+    max-width: 48ch;
     margin-bottom: var(--space-xs);
-    color: var(--color-ink);
-    font-size: var(--text-base);
-    line-height: 1.6;
+    color: var(--color-ink-2);
+    font-size: var(--text-md);
+    line-height: 1.4;
 }
 
 @media (max-width: 600px) {
     .emptyTaskListMessage {
-        min-height: 280px;
-        padding: var(--space-md);
-        border-radius: var(--radius-card);
+        padding: var(--space-lg) var(--space-md);
     }
 
-    .emptyTaskListTitle {
-        font-size: var(--text-2xl);
+    .emptyTaskListDescription {
+        font-size: var(--text-base);
     }
 }

@@ -3,11 +3,10 @@
     justify-items: start;
     align-content: end;
     gap: var(--space-sm);
-    min-height: 360px;
-    padding: var(--space-xl) var(--space-lg) var(--space-lg);
-    border-radius: var(--radius-tile);
-    background: var(--color-ink);
-    color: var(--color-paper);
+    min-height: 380px;
+    padding: var(--space-xl) var(--space-lg);
+    background: var(--gradient-band);
+    color: var(--color-on-dark);
 }
 
 .notFoundPage :focus-visible {
@@ -15,47 +14,54 @@
 }
 
 .notFoundEyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2xs);
-    padding: var(--space-3xs) var(--space-xs);
-    border-radius: var(--radius-pill);
-    background: var(--color-accent);
-    color: var(--color-accent-ink);
-    font-size: var(--text-xs);
-    font-weight: 500;
+    color: var(--color-on-dark-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
 }
 
 .notFoundTitle {
-    max-width: 12ch;
+    position: relative;
+    max-width: 14ch;
     min-width: 0;
+    padding-bottom: var(--space-md);
     font-size: var(--text-display-s);
-    letter-spacing: -0.045em;
-    line-height: 0.95;
     overflow-wrap: anywhere;
+}
+
+.notFoundTitle::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 120px;
+    height: var(--rule-motif);
+    background: var(--color-on-dark);
 }
 
 .notFoundDescription {
     margin-bottom: var(--space-xs);
-    color: var(--color-rail-ink-2);
-    font-size: var(--text-base);
-    line-height: 1.6;
+    color: var(--color-on-dark);
+    font-size: var(--text-md);
+    line-height: 1.4;
 }
 
 .notFoundPage :global(.secondaryButton) {
-    border-color: var(--color-paper);
-    color: var(--color-paper);
+    border-color: var(--color-on-dark);
+    color: var(--color-on-dark);
 }
 
 .notFoundPage :global(.secondaryButton):hover {
-    background: var(--color-paper);
-    color: var(--color-ink);
+    background: var(--color-on-dark);
+    color: var(--color-navy);
 }
 
 @media (max-width: 600px) {
     .notFoundPage {
         min-height: 300px;
-        padding: var(--space-md);
-        border-radius: var(--radius-card);
+        padding: var(--space-lg) var(--space-md);
+    }
+
+    .notFoundDescription {
+        font-size: var(--text-base);
     }
 }
