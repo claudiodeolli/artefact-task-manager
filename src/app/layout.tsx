@@ -2,27 +2,21 @@ import ApplicationFooter from "@/components/application-footer/ApplicationFooter
 import ApplicationHeader from "@/components/application-header/ApplicationHeader";
 import ApplicationTrpcProvider from "@/trpc/client/ApplicationTrpcProvider";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist, Inter_Tight } from "next/font/google";
 import type { ReactNode } from "react";
 import "./tokens.css";
 import "./globals.css";
 
-const instrumentSerif = Instrument_Serif({
+const interTight = Inter_Tight({
     subsets: ["latin"],
-    weight: "400",
-    variable: "--font-instrument-serif",
+    weight: ["300", "400", "500"],
+    variable: "--font-inter-tight",
     display: "swap",
 });
 
 const geist = Geist({
     subsets: ["latin"],
     variable: "--font-geist",
-    display: "swap",
-});
-
-const geistMono = Geist_Mono({
-    subsets: ["latin"],
-    variable: "--font-geist-mono",
     display: "swap",
 });
 
@@ -39,7 +33,7 @@ export default function RootLayout({ children }: RootLayoutProperties) {
     return (
         <html
             lang="en"
-            className={`${instrumentSerif.variable} ${geist.variable} ${geistMono.variable}`}
+            className={`${interTight.variable} ${geist.variable}`}
         >
             <body>
                 <a href="#main-content" className="skipLink">

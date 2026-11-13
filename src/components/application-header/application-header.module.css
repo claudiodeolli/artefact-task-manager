@@ -1,26 +1,26 @@
 .applicationHeader {
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 30;
-    border-bottom: var(--hairline) solid var(--color-rule);
-    background: var(--color-paper);
+    background: var(--color-rail);
+    color: var(--color-rail-ink);
+}
+
+.applicationHeader :focus-visible {
+    outline-color: var(--color-focus-on-dark);
 }
 
 .applicationHeaderContent {
+    position: sticky;
+    top: 0;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-md);
-    width: 100%;
-    max-width: var(--page-max);
-    min-height: 72px;
-    margin-inline: auto;
-    padding: 0 var(--space-xl);
+    flex-direction: column;
+    gap: var(--space-xl);
+    height: 100vh;
+    padding: var(--space-lg) var(--space-md);
 }
 
 .applicationMasthead {
-    display: flex;
-    align-items: baseline;
+    display: grid;
     gap: var(--space-md);
     min-width: 0;
 }
@@ -29,99 +29,130 @@
     display: inline-flex;
     align-items: center;
     gap: var(--space-xs);
-    color: var(--color-ink);
+    justify-self: start;
+    color: var(--color-rail-ink);
     text-decoration: none;
     white-space: nowrap;
+    border-radius: var(--radius-pill);
     transition: opacity var(--dur-short) var(--ease-out);
 }
 
 .applicationBrand:hover {
-    opacity: 0.78;
+    opacity: 0.8;
 }
 
 .applicationBrand:active {
-    opacity: 0.62;
+    opacity: 0.64;
 }
 
 .applicationBrandMark {
-    width: 9px;
-    height: 9px;
+    width: 24px;
+    height: 24px;
     flex: 0 0 auto;
-    border: var(--hairline) solid var(--color-ink);
-    background: var(--color-accent);
-    transform: rotate(45deg);
+    background:
+        radial-gradient(circle at 25% 25%, var(--color-accent) 0 4.5px, transparent 5px),
+        radial-gradient(circle at 75% 25%, var(--color-rail-ink) 0 4.5px, transparent 5px),
+        radial-gradient(circle at 25% 75%, var(--color-lilac) 0 4.5px, transparent 5px),
+        radial-gradient(circle at 75% 75%, var(--color-butter) 0 4.5px, transparent 5px);
 }
 
 .applicationBrandName {
     font-family: var(--font-display);
-    font-size: var(--text-lg);
-    letter-spacing: -0.02em;
+    font-size: var(--text-md);
+    font-weight: 500;
+    letter-spacing: -0.03em;
     line-height: 1;
 }
 
 .applicationRailLabel {
     margin: 0;
-    padding-left: var(--space-md);
-    border-left: var(--hairline) solid var(--color-rule);
-    color: var(--color-ink-3);
-    font-family: var(--font-mono);
-    font-size: 0.64rem;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
+    padding-top: var(--space-md);
+    border-top: var(--hairline) solid var(--color-rail-rule);
+    color: var(--color-rail-ink-2);
+    font-size: var(--text-xs);
+    letter-spacing: 0.01em;
     white-space: nowrap;
 }
 
 .applicationNavigation {
     display: flex;
-    align-items: center;
     flex: 0 0 auto;
 }
 
 .applicationNavigation .applicationAction {
-    min-height: 46px;
-    padding: var(--space-xs) var(--space-lg);
+    width: 100%;
+    min-height: 52px;
+    justify-content: flex-start;
+    gap: var(--space-xs);
+    padding: var(--space-3xs) var(--space-md) var(--space-3xs) var(--space-3xs);
     border-color: var(--color-accent);
     background: var(--color-accent);
     color: var(--color-accent-ink);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
+    font-size: var(--text-sm);
 }
 
 .applicationNavigation .applicationAction:hover {
-    border-color: var(--color-accent-strong);
-    background: var(--color-accent-strong);
+    border-color: var(--color-rail-ink);
+    background: var(--color-rail-ink);
+    color: var(--color-ink);
 }
 
 .applicationActionMark {
-    font-family: var(--font-body);
-    font-size: 1.2em;
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 auto;
+    border-radius: var(--radius-pill);
+    background: var(--color-ink);
+    color: var(--color-rail-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-md);
+    font-weight: 300;
     line-height: 1;
-    transform: translateY(-1px);
 }
 
 @media (max-width: 900px) {
+    .applicationHeader {
+        position: sticky;
+        top: 0;
+    }
+
     .applicationHeaderContent {
+        position: static;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-md);
+        height: auto;
         min-height: 64px;
-        padding: 0 var(--space-md);
+        padding: var(--space-xs) var(--space-md);
+    }
+
+    .applicationMasthead {
+        display: flex;
+        align-items: center;
     }
 
     .applicationRailLabel {
         display: none;
     }
 
-    .applicationBrandName {
-        font-size: var(--text-md);
+    .applicationNavigation .applicationAction {
+        width: auto;
+        min-height: 44px;
+        padding-right: var(--space-sm);
     }
 
-    .applicationNavigation .applicationAction {
-        min-height: 40px;
-        padding: var(--space-2xs) var(--space-sm);
-        font-size: 0.68rem;
+    .applicationActionMark {
+        width: 34px;
+        height: 34px;
+        font-size: var(--text-base);
     }
 }
 
 @media (max-width: 600px) {
     .applicationHeaderContent {
-        padding: 0 var(--space-sm);
+        padding: var(--space-2xs) var(--space-sm);
     }
 }

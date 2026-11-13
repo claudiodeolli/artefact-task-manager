@@ -1,23 +1,38 @@
 :root {
-    --color-paper: oklch(96.4% 0.011 84);
-    --color-paper-2: oklch(93.2% 0.016 82);
-    --color-paper-3: oklch(89.5% 0.02 80);
-    --color-ink: oklch(21% 0.016 60);
-    --color-ink-2: oklch(38% 0.018 62);
-    --color-ink-3: oklch(47% 0.018 65);
-    --color-rule: oklch(84% 0.018 80);
-    --color-rule-strong: oklch(72% 0.022 78);
-    --color-accent: oklch(57% 0.19 32);
-    --color-accent-strong: oklch(45% 0.18 30);
-    --color-accent-soft: oklch(93% 0.04 40);
-    --color-accent-ink: oklch(98% 0.008 85);
-    --color-success: oklch(43% 0.07 150);
-    --color-success-soft: oklch(94% 0.025 150);
-    --color-focus: oklch(45% 0.18 30);
+    --color-canvas: oklch(95.6% 0.011 78);
+    --color-paper: oklch(98.6% 0.005 80);
+    --color-paper-2: oklch(93% 0.012 78);
+    --color-paper-3: oklch(89% 0.014 78);
+    --color-ink: oklch(18.5% 0.006 60);
+    --color-ink-2: oklch(36% 0.01 60);
+    --color-ink-3: oklch(46% 0.01 60);
+    --color-rule: oklch(86% 0.012 78);
+    --color-rule-strong: oklch(70% 0.014 70);
 
-    --font-display: var(--font-instrument-serif), "Instrument Serif", ui-serif, Georgia, serif;
+    --color-rail: oklch(16% 0.004 60);
+    --color-rail-2: oklch(23% 0.005 60);
+    --color-rail-rule: oklch(32% 0.006 60);
+    --color-rail-ink: oklch(96% 0.008 80);
+    --color-rail-ink-2: oklch(72% 0.01 70);
+
+    --color-accent: oklch(64% 0.2 36);
+    --color-accent-strong: oklch(50% 0.19 33);
+    --color-accent-soft: oklch(93% 0.04 40);
+    --color-accent-ink: oklch(18.5% 0.006 60);
+
+    --color-butter: oklch(93% 0.05 86);
+    --color-mint: oklch(92% 0.032 205);
+    --color-lilac: oklch(80% 0.055 292);
+    --color-lilac-soft: oklch(90% 0.032 292);
+    --color-sage: oklch(92% 0.042 150);
+
+    --color-success: oklch(42% 0.08 150);
+    --color-success-soft: oklch(92% 0.042 150);
+    --color-focus: oklch(50% 0.19 33);
+    --color-focus-on-dark: oklch(80% 0.13 45);
+
+    --font-display: var(--font-inter-tight), "Inter Tight", ui-sans-serif, system-ui, sans-serif;
     --font-body: var(--font-geist), "Geist", ui-sans-serif, system-ui, sans-serif;
-    --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
 
     --space-3xs: 0.25rem;
     --space-2xs: 0.5rem;
@@ -29,6 +44,7 @@
     --space-2xl: 4.5rem;
     --space-3xl: 7rem;
 
+    --text-2xs: 0.6875rem;
     --text-xs: 0.75rem;
     --text-sm: 0.875rem;
     --text-base: 1rem;
@@ -37,16 +53,20 @@
     --text-xl: 1.9531rem;
     --text-2xl: 2.4414rem;
     --text-3xl: 3.0518rem;
-    --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
-    --text-display-s: clamp(2.5rem, 3.5vw + 1rem, 3.75rem);
+    --text-display: clamp(2.75rem, 5.2vw + 1rem, 5.75rem);
+    --text-display-s: clamp(2.5rem, 3.6vw + 1rem, 4.25rem);
+    --text-numeral: clamp(4rem, 7vw + 1rem, 7.5rem);
 
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
     --dur-short: 160ms;
     --dur-medium: 260ms;
 
-    --radius-control: 2px;
-    --radius-input: 0;
+    --radius-tile: 28px;
+    --radius-card: 24px;
+    --radius-field: 14px;
+    --radius-pill: 999px;
     --hairline: 1px;
-    --page-max: 1180px;
+    --rail-width: 248px;
+    --page-max: 1240px;
 }
