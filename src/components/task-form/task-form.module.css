@@ -4,12 +4,10 @@
     align-items: start;
     gap: var(--space-2xl);
     width: 100%;
-    max-width: 1040px;
+    max-width: 100%;
 }
 
 .taskFormIntro {
-    position: sticky;
-    top: var(--space-xl);
     display: grid;
     gap: var(--space-md);
 }
@@ -167,11 +165,7 @@
     .taskFormPage {
         grid-template-columns: minmax(0, 1fr);
         gap: var(--space-lg);
-        max-width: 640px;
-    }
-
-    .taskFormIntro {
-        position: static;
+        max-width: 100%;
     }
 
     .taskForm {

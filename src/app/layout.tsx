@@ -1,3 +1,4 @@
+import ApplicationFooter from "@/components/application-footer/ApplicationFooter";
 import ApplicationHeader from "@/components/application-header/ApplicationHeader";
 import ApplicationTrpcProvider from "@/trpc/client/ApplicationTrpcProvider";
 import type { Metadata } from "next";
@@ -45,11 +46,12 @@ export default function RootLayout({ children }: RootLayoutProperties) {
                     Skip to content
                 </a>
                 <ApplicationTrpcProvider>
-                    <div className="applicationShell">
+                    <div className="applicationLayout">
                         <ApplicationHeader />
                         <main id="main-content" className="applicationMain" tabIndex={-1}>
                             {children}
                         </main>
+                        <ApplicationFooter />
                     </div>
                 </ApplicationTrpcProvider>
             </body>

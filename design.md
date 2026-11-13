@@ -14,8 +14,8 @@ Editorial, with an app-specific Workbench structure. The interface should feel d
 
 ## Macrostructure family
 
-- App pages: Workbench ledger. A fixed index rail on the left, a wide working column on the right, ruled entries, and an editorial page head. The rail carries navigation and the primary action; the page itself carries the content.
-- Content pages: the same rail and working column, with a narrower measure for reading.
+- App pages: Workbench ledger. A sticky masthead at the top, a single wide working column, ruled entries, and an editorial page head. The masthead carries the wordmark, the ledger label, and the one accent-filled New task action; the page itself carries the content.
+- Content pages: the same masthead and working column, with a narrower measure for reading.
 - There are no marketing pages in this product.
 
 ## Theme
@@ -57,7 +57,7 @@ A 4-point named scale in `tokens.css`: `--space-3xs` through `--space-3xl`. Page
 ## Rules and surfaces
 
 - Hairline rules do the work that cards used to do. List entries are separated by `--color-rule`; no entry has a shadow.
-- Surfaces are flat. The only filled surfaces are the ink primary button and the paper-2 rail.
+- Surfaces are flat. The only filled surfaces are the ink form button, the accent masthead action, and the paper-2 row hover.
 - Radius is nearly absent: 2px on controls, 0 on inputs, 0 on rows. No pills.
 - The page background carries a very quiet paper grain. It is texture, not decoration, and must never reduce contrast.
 
@@ -79,10 +79,11 @@ A 4-point named scale in `tokens.css`: `--space-3xs` through `--space-3xl`. Page
 
 ## CTA voice
 
-- Primary: ink fill, paper text, 2px radius, mono uppercase label, 12px by 18px padding. One primary action per page.
+- Primary form action: ink fill, paper text, 2px radius, mono uppercase label, 8px by 16px padding. One per form.
+- Masthead action: the one accent-filled button in the product, 12px by 32px, with a plus mark. It is present on the list and hidden on task form routes so it cannot clear a draft.
 - Secondary: text link with a hairline underline that darkens on hover. No box.
 - Destructive: accent-strong text, no fill, underline on hover.
-- Labels are verbs: “New task”, “Add task”, “Save changes”, “Delete”, “Back to tasks”.
+- Labels are verbs: "New task", "Add task", "Save changes", "Delete", "Back to tasks".
 
 ## Page copy voice
 
@@ -96,7 +97,8 @@ Short, specific, quietly literary. Verbs over adjectives. No exclamation marks, 
 
 ## What pages must share
 
-- The rail, the wordmark, and the primary action voice.
+- The masthead, the wordmark, and the accent-filled New task action.
+- The closing colophon line and its quiet rule.
 - The paper, ink, and accent palette.
 - Instrument Serif, Geist, and Geist Mono.
 - The hairline rule language and the ruled-entry rhythm.
@@ -129,6 +131,6 @@ The canonical tokens live in `src/app/tokens.css`. The page CSS imports them thr
 
 ## Hallmark review
 
-Pre-emit critique: Philosophy 5 · Hierarchy 5 · Execution 5 · Specificity 5 · Restraint 4 · Variety 4.
+Pre-emit critique: Philosophy 5 · Hierarchy 5 · Execution 5 · Specificity 5 · Restraint 5 · Variety 4.
 
 The app-system rules in this file take precedence over the page-level catalog. Geist Mono is used as one metadata register across dates, counts, labels, and control microcopy; the title field is deliberately display-sized; and no stamp comment is placed in the CSS because the brief forbids comments in code. This file is the durable record instead. Contrast, focus, reduced motion, token discipline, responsive overflow, and clickable-label wrapping are verified in the rendered application.

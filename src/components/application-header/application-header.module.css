@@ -1,27 +1,37 @@
 .applicationHeader {
     position: sticky;
     top: 0;
+    z-index: 30;
+    border-bottom: var(--hairline) solid var(--color-rule);
+    background: var(--color-paper);
+}
+
+.applicationHeaderContent {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-    height: 100vh;
-    padding: var(--space-lg) var(--space-md);
-    border-right: var(--hairline) solid var(--color-rule);
-    background: var(--color-paper-2);
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    width: 100%;
+    max-width: var(--page-max);
+    min-height: 72px;
+    margin-inline: auto;
+    padding: 0 var(--space-xl);
 }
 
 .applicationMasthead {
-    display: grid;
-    gap: var(--space-2xs);
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-md);
+    min-width: 0;
 }
 
 .applicationBrand {
     display: inline-flex;
     align-items: center;
     gap: var(--space-xs);
-    width: fit-content;
     color: var(--color-ink);
     text-decoration: none;
+    white-space: nowrap;
     transition: opacity var(--dur-short) var(--ease-out);
 }
 
@@ -51,119 +61,67 @@
 
 .applicationRailLabel {
     margin: 0;
+    padding-left: var(--space-md);
+    border-left: var(--hairline) solid var(--color-rule);
     color: var(--color-ink-3);
     font-family: var(--font-mono);
     font-size: 0.64rem;
     letter-spacing: 0.13em;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .applicationNavigation {
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--space-sm);
-}
-
-.applicationNavigationAction {
-    width: 100%;
-}
-
-.applicationNavigationLink {
-    display: flex;
     align-items: center;
-    gap: var(--space-2xs);
-    padding: var(--space-2xs) 0;
-    border-bottom: var(--hairline) solid var(--color-rule);
-    color: var(--color-ink);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
+    flex: 0 0 auto;
 }
 
-.applicationNavigationLink::before {
-    content: "";
-    width: 22px;
-    height: 1px;
+.applicationNavigation .applicationAction {
+    min-height: 46px;
+    padding: var(--space-xs) var(--space-lg);
+    border-color: var(--color-accent);
     background: var(--color-accent);
-    transform: scaleX(0.64);
-    transform-origin: left;
-    transition: transform var(--dur-short) var(--ease-out);
+    color: var(--color-accent-ink);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
 }
 
-.applicationNavigationLink:hover {
-    color: var(--color-accent-strong);
+.applicationNavigation .applicationAction:hover {
+    border-color: var(--color-accent-strong);
+    background: var(--color-accent-strong);
 }
 
-.applicationNavigationLink:active {
-    color: var(--color-accent-strong);
-}
-
-.applicationNavigationLink:hover::before {
-    transform: scaleX(1);
-}
-
-.applicationRailFooter {
-    display: grid;
-    gap: var(--space-sm);
-    margin-top: auto;
-}
-
-.applicationRailQuote {
-    max-width: 18ch;
-    color: var(--color-ink-2);
-    font-family: var(--font-display);
-    font-size: var(--text-md);
-    letter-spacing: -0.015em;
-    line-height: 1.15;
-}
-
-.applicationRailColophon {
-    padding-top: var(--space-xs);
-    border-top: var(--hairline) solid var(--color-rule);
-    color: var(--color-ink-3);
-    font-family: var(--font-mono);
-    font-size: 0.64rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+.applicationActionMark {
+    font-family: var(--font-body);
+    font-size: 1.2em;
+    line-height: 1;
+    transform: translateY(-1px);
 }
 
 @media (max-width: 900px) {
-    .applicationHeader {
-        position: sticky;
-        z-index: 30;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--space-sm);
-        height: auto;
-        padding: var(--space-xs) var(--space-sm);
-        border-right: 0;
-        border-bottom: var(--hairline) solid var(--color-rule);
-        background: var(--color-paper);
+    .applicationHeaderContent {
+        min-height: 64px;
+        padding: 0 var(--space-md);
+    }
+
+    .applicationRailLabel {
+        display: none;
     }
 
     .applicationBrandName {
         font-size: var(--text-md);
     }
 
-    .applicationRailLabel,
-    .applicationRailFooter,
-    .applicationNavigationLink {
-        display: none;
-    }
-
-    .applicationNavigation {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .applicationNavigationAction {
-        width: auto;
-        min-height: 36px;
-        padding: var(--space-2xs) var(--space-xs);
+    .applicationNavigation .applicationAction {
+        min-height: 40px;
+        padding: var(--space-2xs) var(--space-sm);
         font-size: 0.68rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .applicationHeaderContent {
+        padding: 0 var(--space-sm);
     }
 }

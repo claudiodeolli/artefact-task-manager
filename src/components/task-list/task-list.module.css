@@ -2,7 +2,6 @@
     display: grid;
     gap: var(--space-lg);
     width: 100%;
-    max-width: 1040px;
 }
 
 .taskListHeader {

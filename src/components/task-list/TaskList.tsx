@@ -7,7 +7,6 @@ import useInfiniteScrollTrigger from "@/hooks/useInfiniteScrollTrigger";
 import useTaskDeletionController from "@/hooks/useTaskDeletionController";
 import useTaskListInfiniteQuery from "@/hooks/useTaskListInfiniteQuery";
 import type { TaskListPage } from "@/models/TaskListPage";
-import Link from "next/link";
 import styles from "./task-list.module.css";
 
 type TaskListProperties = {
@@ -46,9 +45,6 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
                     <p className={styles.taskListDescription}>
                         Everything currently on the desk, newest first.
                     </p>
-                    <Link href="/tasks/new" className="secondaryButton">
-                        Add an entry
-                    </Link>
                 </div>
 
                 <div
