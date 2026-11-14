@@ -14,6 +14,22 @@ A escrita é simples e enxuta, com arquivos separados e seguindo a stack recomen
 
 O projeto é bem simples, então não acho que haja algum detalhe muito especial a comentar.
 
+## Como funciona
+
+A aplicação é um gerenciador de tarefas em memória. A primeira página é renderizada no servidor, enquanto o cliente usa o TanStack Query para carregar as próximas páginas por cursor e manter a lista atualizada após criar, editar ou excluir uma tarefa.
+
+As operações passam por uma API tRPC tipada e são validadas com Zod no cliente e no servidor. O estado fica em um repositório em memória compartilhado pelo processo do servidor; por isso, os dados voltam aos três registros iniciais quando a aplicação reinicia. O botão de reset da demo restaura esse estado sem reiniciar o processo.
+
+## Stack
+
+* **Next.js 15** com App Router, **React 19** e **TypeScript**;
+* **tRPC 11** para a API tipada;
+* **TanStack Query 5** para cache, paginação e mutações;
+* **Zod 4** para validação compartilhada;
+* **CSS Modules** e variáveis CSS para a interface;
+* **Vitest 5**, Testing Library e jsdom para os testes;
+* **Node.js 22 LTS** no desenvolvimento e no deploy.
+
 Disponível no seguinte link: [https://artefact-task-manager-2zq0.onrender.com/](https://artefact-task-manager-2zq0.onrender.com/)
 
 O Render foi usado apenas pela gratuidade e pela facilidade de deploy.
