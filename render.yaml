@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: artefact-task-manager
+    runtime: node
+    plan: 0.5c-512mb
+    region: oregon
+    numInstances: 1
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
