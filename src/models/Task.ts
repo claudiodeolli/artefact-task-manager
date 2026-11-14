@@ -5,6 +5,9 @@ export type TaskProperties = {
     readonly createdAt: string;
 };
 
+// Junto com esse pequeno desafio, decidi relembrar alguns padrões e convenções adotados nos meus estudos de javascript,
+// dentro desses padrões está a nomeação das váriaveis privadas com "#" como primeiro dígito, e o object freeze como
+// imutabilidade para preservar a segurança em manutenções.
 export default class Task {
     readonly #id: string;
     readonly #title: string;

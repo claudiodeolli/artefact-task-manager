@@ -6,6 +6,8 @@ type SeedTaskDefinition = {
     readonly hoursAgo: number;
 };
 
+// Apenas para popular a tela inicial antes da criação manual de qualquer atividade, um padrão
+// parecido pode ser aplicado em ambientes locais de desenvolvedores.
 const seedTaskDefinitions: readonly SeedTaskDefinition[] = [
     {
         title: "Prepare the weekly analytics review",

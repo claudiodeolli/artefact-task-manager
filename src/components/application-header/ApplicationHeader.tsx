@@ -16,7 +16,6 @@ export default function ApplicationHeader() {
                         <span className={styles.applicationBrandMark} aria-hidden="true" />
                         <span className={styles.applicationBrandName}>Task Manager</span>
                     </Link>
-                    <p className={styles.applicationRailLabel}>Work ledger / Vol. 01</p>
                 </div>
 
                 {shouldShowNewTaskAction ? (
