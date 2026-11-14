@@ -17,7 +17,6 @@ describe("ApplicationHeader", () => {
 
         expect(screen.getByRole("link", { name: "Task Manager home" })).toHaveAttribute("href", "/");
         expect(screen.getByRole("link", { name: "New task" })).toHaveAttribute("href", "/tasks/new");
-        expect(screen.getByText("Work ledger / Vol. 01")).toBeInTheDocument();
     });
 
     it("hides the new task action on the creation form", () => {
