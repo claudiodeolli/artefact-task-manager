@@ -10,6 +10,10 @@ describe("getTaskFeedbackMessage", () => {
         expect(getTaskFeedbackMessage("updated")).toBe("Entry updated in the ledger.");
     });
 
+    it("returns the message for a reset demo", () => {
+        expect(getTaskFeedbackMessage("reset")).toBe("Sample entries restored.");
+    });
+
     it("returns null for an unknown status", () => {
         expect(getTaskFeedbackMessage("deleted")).toBeNull();
     });

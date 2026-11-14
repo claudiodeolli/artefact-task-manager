@@ -1,0 +1,63 @@
+.demoModeNotice {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: var(--space-2xs) var(--space-md);
+    border: var(--hairline) solid var(--color-rule);
+    background: var(--color-paper-2);
+}
+
+.demoModeMessage {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-xs);
+    color: var(--color-ink-2);
+    font-size: var(--text-sm);
+    line-height: 1.4;
+}
+
+.demoModeLabel {
+    color: var(--color-accent-strong);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.demoModeActions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs);
+}
+
+.demoModeError {
+    flex-basis: 100%;
+    color: var(--color-accent-strong);
+    font-size: var(--text-sm);
+}
+
+@media (max-width: 600px) {
+    .demoModeNotice {
+        padding: var(--space-xs);
+    }
+
+    .demoModeMessage {
+        flex-basis: 100%;
+    }
+
+    .demoModeNotice > .secondaryButton {
+        width: 100%;
+    }
+
+    .demoModeActions {
+        width: 100%;
+    }
+
+    .demoModeActions > button {
+        flex: 1 1 auto;
+    }
+}

@@ -26,4 +26,12 @@ export default class InMemoryTaskRepository {
     deleteTaskById(taskId: string): void {
         this.#tasksById.delete(taskId);
     }
+
+    replaceAllTasks(tasks: readonly Task[]): void {
+        this.#tasksById.clear();
+
+        for (const task of tasks) {
+            this.#tasksById.set(task.id, task);
+        }
+    }
 }

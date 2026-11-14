@@ -18,6 +18,10 @@ vi.mock("@/hooks/useInfiniteScrollTrigger", () => ({
     default: vi.fn(),
 }));
 
+vi.mock("@/components/demo-mode-notice/DemoModeNotice", () => ({
+    default: () => null,
+}));
+
 const initialTaskPage: TaskListPage = {
     items: [
         {

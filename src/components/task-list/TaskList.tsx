@@ -3,6 +3,7 @@
 import EmptyTaskListMessage from "@/components/empty-task-list-message/EmptyTaskListMessage";
 import FeedbackMessage from "@/components/feedback-message/FeedbackMessage";
 import DeleteTaskConfirmationDialog from "@/components/delete-task-confirmation-dialog/DeleteTaskConfirmationDialog";
+import DemoModeNotice from "@/components/demo-mode-notice/DemoModeNotice";
 import TaskCard from "@/components/task-card/TaskCard";
 import TaskListSkeleton from "@/components/task-list-skeleton/TaskListSkeleton";
 import formatTaskEntryNoun from "@/helpers/formatTaskEntryNoun";
@@ -94,6 +95,8 @@ export default function TaskList({ initialTaskPage, initialFeedbackMessage }: Ta
                     <span className={styles.taskListCountShown}>{taskDtoList.length} shown</span>
                 </div>
             </header>
+
+            <DemoModeNotice />
 
             <FeedbackMessage message={feedbackMessage} tone={feedbackTone} />
 

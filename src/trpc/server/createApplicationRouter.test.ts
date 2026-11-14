@@ -115,4 +115,20 @@ describe("task router", () => {
             message: 'Task with id "missing-task" was not found.',
         });
     });
+
+    it("resets the task list to the seed entries", async () => {
+        const caller = createTaskCaller();
+
+        await caller.task.create({ title: "Temporary task" });
+        await caller.task.reset();
+
+        const taskPage = await caller.task.list({ pageSize: 10 });
+
+        expect(taskPage.totalTaskCount).toBe(3);
+        expect(taskPage.items.map((task) => task.title)).toEqual([
+            "Prepare the weekly analytics review",
+            "Review the customer segmentation model",
+            "Update the onboarding documentation",
+        ]);
+    });
 });

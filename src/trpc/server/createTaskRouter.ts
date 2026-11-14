@@ -2,6 +2,7 @@ import type CreateTaskController from "@/controllers/CreateTaskController";
 import type DeleteTaskController from "@/controllers/DeleteTaskController";
 import type GetTaskByIdController from "@/controllers/GetTaskByIdController";
 import type ListTasksController from "@/controllers/ListTasksController";
+import type ResetTasksController from "@/controllers/ResetTasksController";
 import type UpdateTaskController from "@/controllers/UpdateTaskController";
 import { createTaskInputSchema } from "@/schemas/createTaskInputSchema";
 import { listTasksInputSchema } from "@/schemas/listTasksInputSchema";
@@ -16,6 +17,7 @@ export type TaskRouterDependencies = {
     readonly getTaskByIdController: GetTaskByIdController;
     readonly updateTaskController: UpdateTaskController;
     readonly deleteTaskController: DeleteTaskController;
+    readonly resetTasksController: ResetTasksController;
 };
 
 export default function createTaskRouter(dependencies: TaskRouterDependencies) {
@@ -35,5 +37,7 @@ export default function createTaskRouter(dependencies: TaskRouterDependencies) {
         delete: publicProcedure
             .input(taskIdInputSchema)
             .mutation(({ input }) => dependencies.deleteTaskController.deleteTask(input)),
+        reset: publicProcedure
+            .mutation(() => dependencies.resetTasksController.resetTasks()),
     });
 }

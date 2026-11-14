@@ -57,4 +57,18 @@ describe("InMemoryTaskRepository", () => {
         expect(firstRepository.findAllTasks()).toHaveLength(1);
         expect(secondRepository.findAllTasks()).toHaveLength(0);
     });
+
+    it("replaces all tasks with the provided tasks", () => {
+        const repository = new InMemoryTaskRepository([
+            createTestTask({ id: "old-task", title: "Old task" }),
+        ]);
+        const replacementTasks = [
+            createTestTask({ id: "replacement-task", title: "Replacement task" }),
+        ];
+
+        repository.replaceAllTasks(replacementTasks);
+
+        expect(repository.findAllTasks()).toEqual(replacementTasks);
+        expect(repository.findTaskById("old-task")).toBeUndefined();
+    });
 });
