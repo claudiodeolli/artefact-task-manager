@@ -55,3 +55,30 @@ npm run start
 ```
 
 O servidor também usa a porta `3000` por padrão.
+
+## Padrão de commits
+
+O projeto segue o padrão **Conventional Commits**. As mensagens são curtas, escritas em inglês e no imperativo, com a seguinte estrutura:
+
+`tipo(escopo): descrição`
+
+O escopo é opcional e indica a área afetada, como `ui`, `demo`, `deploy` ou `edit-task`.
+
+Os tipos utilizados no histórico do projeto são:
+
+* `feat`: nova funcionalidade;
+* `fix`: correção de bug;
+* `docs`: documentação;
+* `refactor`: refatoração sem mudança de comportamento;
+* `test`: testes;
+* `chore`: manutenção e configuração;
+* `ci`: integração contínua.
+
+Exemplos:
+
+```text
+feat(ui): confirm task deletion in a dialog
+fix(edit-task): render not found for missing tasks
+chore(deploy): add container and Render deployment config
+docs: add project README
+```
