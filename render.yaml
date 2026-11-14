@@ -2,7 +2,7 @@ services:
   - type: web
     name: artefact-task-manager
     runtime: node
-    plan: 0.5c-512mb
+    plan: free
     region: oregon
     numInstances: 1
     buildCommand: npm ci && npm run build
